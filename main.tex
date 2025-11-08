@@ -2,56 +2,76 @@
 
 \usepackage{setspace}
 \usepackage{geometry}
-\usepackage{graphicx} 
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{array}
 \geometry{margin=1in}
 \setstretch{1.2}
+\definecolor{mygray}{RGB}{88, 88, 88}
+\pagestyle{plain}
 
 \begin{document}
 
+% title page
 \begin{titlepage}
 \centering
 
-\includegraphics[width=3cm]{logo.png}\\[1em] 
-{\Large \textbf{Namal University, Mianwali}}\\[0.5em]
+\includegraphics[width=4.5cm]{namal-logo.png}\\[1em]
+
+{\Large \textbf{Namal University, Mianwali}}\\[1em]
 {\large Department of Computer Science}\\[3em]
 
-{\LARGE \textbf{UNIVERSITY TIMETABLE MANAGEMENT SYSTEM}}\\[1em]
-{\large CSC-225: Software Engineering}\\[3.5em]
+{\LARGE \textbf{Project Proposal for}}\\[1.5em]
+{\large \textcolor{mygray}{\textbf{University Timetable Management System}}}\\[1.5em]
+{\large CSC-225: Software Engineering}\\[1em]
+{\large \textbf{Fall 2025}}\\[3em]
 
-{\large \textbf{Submitted By:}}\\[1em]
+{\large \textbf{Requirement Provider (Client):}}\\[0.5em]
+{\large Abdul Rafay}\\[3em]
 
-{\large Hammad Shabir (Roll No: NUM-BSCS-2024-25)\\
-Email: bscs24f25@namal.edu.pk}\\[1.5em]
+{\large \textbf{Submitted By:}}\\[0.5em]
 
-{\large Ahmer Sultan (Roll No: NUM-BSCS-2024-03)\\
-Email: bscs24f03@namal.edu.pk}\\[1.5em]
+\setlength{\tabcolsep}{12pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5cm}|}
+\hline
+\textbf{Sr. No} & \textbf{Name} & \textbf{Reg. No} \\ \hline
+1 & Hammad Shabir & NUM-BSCS-2024-25 \\ \hline
+2 & Ahmer Sultan & NUM-BSCS-2024-03 \\ \hline
+3 & Husnain Ali & NUM-BSCS-2024-26 \\ \hline
+\end{tabular}
+\end{table}
+\vspace{2em}
 
-{\large Husnain Ali (Roll No: NUM-BSCS-2024-26)\\
-Email: bscs24f26@namal.edu.pk}\\[3.5em]
+{\large \textbf{Submission Date:} 09 November 2025}\\[3em]
 
-{\large \textbf{Requirement Providers (RP):}}\\[1em]
-{\large Rafay Khan Niazi}\\
-{\large Muhammad Abdullah}\\[3em]
-
-
-{\large Submission Date: 9th November 2025}\\[3em]
-
-{\large Department of Computer Science\\
-Namal University, Mianwali}
+\thispagestyle{empty}
 
 \end{titlepage}
-\tableofcontents 
-\newpage 
+
+% main content
+\setcounter{page}{1}
+\pagenumbering{arabic}            
+\setcounter{section}{0}           
+\renewcommand\thesection{\arabic{section}}  
+
+\tableofcontents
+\newpage
+
 \section{Introduction}
-In any education system, time management is very important for both teachers and students. A managed schedule helps everyone stay organized and focused. It is important to balance study time, free slots, and other activities. When a timetable is clear, well planned, and clash-free, students can easily follow their routines and teachers can take their classes without confusion. It defines the schedule of classes, allocates venues, assigns instructors, and ensures that academic activities are processed in an organized manner. 
-Therefore, a proper, efficient, and effective timetable to support smooth learning process in the university. 
 
 \section{Problem Statement}
-\section{Project Objectives}
-\section{Stakeholder Identification}
-\section{Software Development Methodology}
-\section{Tools and Technologies}
-\section{References}
 
+\section{Project Objectives}
+
+\section{Stakeholder Identification}
+
+\section{Software Development Methodology}
+
+\section{Tools and Technologies}
+
+\section{References}
 
 \end{document}
