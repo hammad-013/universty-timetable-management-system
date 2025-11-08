@@ -2,56 +2,195 @@
 
 \usepackage{setspace}
 \usepackage{geometry}
-\usepackage{graphicx} 
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{array}
 \geometry{margin=1in}
 \setstretch{1.2}
+\definecolor{mygray}{RGB}{88, 88, 88}
+\pagestyle{plain}
+\usepackage{enumitem}
+\usepackage{pgfgantt}
+\usepackage{pgfcalendar}
+\usepackage{url}
+\usepackage[hidelinks,breaklinks=true]{hyperref}
+\def\UrlBreaks{\do\/\do-}
+
+
+\definecolor{sprint0}{RGB}{13,17,100}
+\definecolor{sprint1}{RGB}{100,13,95}
+\definecolor{sprint2}{RGB}{234,34,100}
+\definecolor{sprint3}{RGB}{247,141,96}
+\definecolor{sprint4}{RGB}{8,207,208}
+
 
 \begin{document}
 
+% title page
 \begin{titlepage}
 \centering
 
-\includegraphics[width=3cm]{logo.png}\\[1em] 
-{\Large \textbf{Namal University, Mianwali}}\\[0.5em]
+\includegraphics[width=4.5cm]{namal-logo.png}\\[1em]
+
+{\Large \textbf{Namal University, Mianwali}}\\[1em]
 {\large Department of Computer Science}\\[3em]
 
-{\LARGE \textbf{UNIVERSITY TIMETABLE MANAGEMENT SYSTEM}}\\[1em]
-{\large CSC-225: Software Engineering}\\[3.5em]
+{\LARGE \textbf{Project Proposal for}}\\[1.5em]
+{\large \textcolor{mygray}{\textbf{University Timetable Management System}}}\\[1.5em]
+{\large CSC-225: Software Engineering}\\[1em]
+{\large \textbf{Fall 2025}}\\[3em]
 
-{\large \textbf{Submitted By:}}\\[1em]
+{\large \textbf{Requirement Provider (Client):}}\\[0.5em]
+{\large Abdul Rafay}\\[3em]
 
-{\large Hammad Shabir (Roll No: NUM-BSCS-2024-25)\\
-Email: bscs24f25@namal.edu.pk}\\[1.5em]
+{\large \textbf{Submitted By:}}\\[0.5em]
 
-{\large Ahmer Sultan (Roll No: NUM-BSCS-2024-03)\\
-Email: bscs24f03@namal.edu.pk}\\[1.5em]
+\setlength{\tabcolsep}{12pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5cm}|}
+\hline
+\textbf{Sr. No} & \textbf{Name} & \textbf{Reg. No} \\ \hline
+1 & Hammad Shabir & NUM-BSCS-2024-25 \\ \hline
+2 & Ahmer Sultan & NUM-BSCS-2024-03 \\ \hline
+3 & Husnain Ali & NUM-BSCS-2024-26 \\ \hline
+\end{tabular}
+\end{table}
+\vspace{2em}
 
-{\large Husnain Ali (Roll No: NUM-BSCS-2024-26)\\
-Email: bscs24f26@namal.edu.pk}\\[3.5em]
+{\large \textbf{Submission Date:} 09 November 2025}\\[3em]
 
-{\large \textbf{Requirement Providers (RP):}}\\[1em]
-{\large Rafay Khan Niazi}\\
-{\large Muhammad Abdullah}\\[3em]
-
-
-{\large Submission Date: 9th November 2025}\\[3em]
-
-{\large Department of Computer Science\\
-Namal University, Mianwali}
+\thispagestyle{empty}
 
 \end{titlepage}
-\tableofcontents 
-\newpage 
-\section{Introduction}
-In any education system, time management is very important for both teachers and students. A managed schedule helps everyone stay organized and focused. It is important to balance study time, free slots, and other activities. When a timetable is clear, well planned, and clash-free, students can easily follow their routines and teachers can take their classes without confusion. It defines the schedule of classes, allocates venues, assigns instructors, and ensures that academic activities are processed in an organized manner. 
-Therefore, a proper, efficient, and effective timetable to support smooth learning process in the university. 
 
+% main content
+\setcounter{page}{1}
+\pagenumbering{arabic}            
+\setcounter{section}{0}           
+\renewcommand\thesection{\arabic{section}}  
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+In any education system, time management is very important for both teachers and
+students. A managed schedule helps everyone stay organized and focused. It is important
+to balance study time, free slots, and other activities. When a timetable is clear, well
+planned, and clash-free, students can easily follow their routines and teachers can take
+their classes without confusion. It defines the schedule of classes, allocates venues, assigns
+instructors, and ensures that academic activities are processed in an organized manner.
+Therefore, a proper, efficient, and effective timetable to support smooth learning process
+in the university.
 \section{Problem Statement}
+
 \section{Project Objectives}
+The major objective of this project is to implement a management system that will provide a platform for creating and managing class schedules and timetables effectively for faculty and students of the university. This project aims to replace the typical paper-based system and provide a centralized digital solution.
+
+The key objectives are:
+
+\begin{itemize}
+    \item To provide a platform where administrators can conveniently create, update, and manage timetables for all departments and courses.
+    \item To help administrators in finding and resolving clashes between classes, instructors, and class venues.
+    \item To implement role-based access for administrators, faculty, and students.
+    \item To design a user-friendly web interface that provides ease of use for all users.
+    \item To allow students and faculty to view updated schedules online whenever changes occur.
+    \item To store previous timetable records for future reference.
+\end{itemize}
+
 \section{Stakeholder Identification}
+
 \section{Software Development Methodology}
+For this project, we will use the \textbf{Agile (Scrum)} development process. The reason for choosing Scrum is that this project has many constraints due to the multiple roles involved in it, and we need to have continuous communication with Client/RP. Even after extensive requirement analysis, requirements might evolve, Client may want more features, or might not features already developed. So, having an iterative approach is beneficial for effective development and Scrum will provide us a facility to accommodate these changes. In Scrum, system is divided into sprints where each sprints is communicated with Client, feedback is noticed and changes are applied which in result rectifies the overall system. Continuous involvement of stakeholders shall assure us that developed system meets user requirements and needs and issues are identified early which makes development effective.
+According to one year development schedule, project will be divided into phases as \textbf{Scrum sprints}. \textbf{Each sprint spans one month}, hence there are 12 sprints such as:
+
+
+\vspace{0.5cm}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3} 
+\begin{tabular}{|p{5cm}|p{2.5cm}|p{8cm}|}
+\hline
+\textbf{Phase} & \textbf{Duration} & \textbf{Activities} \\ \hline
+\textbf{Planning \& Requirement Analysis} & 2 month & Requirement gathering, defining project backlog, and sprint planning. \\ \hline
+\textbf{Prototype \& Core Modules} & 3 months & Develop core modules (user authentication, database setup, basic CRUD operations), front-end interface, and first testing. \\ \hline
+\textbf{Feature Development \& Integration} & 3 months & Develop additional features (advanced modules) and integrate modules, do unit and integration testing. \\ \hline
+\textbf{Testing \& Refinement} & 2 months & Perform system testing, bug fixing, perform refinement based on user feedback. \\ \hline
+\textbf{Deployment \& Final Evaluation} & 2 months & Final deployment and user training. \\ \hline
+\end{tabular}
+\caption{Project Schedule in Sprints}
+\end{table}
+
+\vspace{0.6cm}
+
+\begin{center}
+{\large \textbf{One-Year Agile (Scrum) Development Timeline}}
+\end{center}
+
+\vspace{0.5cm}
+
+\noindent\makebox[\textwidth]{%
+\begin{ganttchart}[
+    hgrid,
+    vgrid,
+    x unit=0.88cm,
+    y unit title=0.8cm,
+    y unit chart=0.8cm,
+    title height=1,
+    bar height=0.6,
+    bar label font=\scriptsize,
+    title label font=\scriptsize\bfseries,
+    bar/.append style={fill=blue!50}
+]{1}{12}
+    
+    \gantttitle{Months}{12} \\
+    \gantttitlelist{1,...,12}{1} \\
+    
+    \ganttbar[bar/.append style={fill=sprint0}]{\textbf{Planning \& Requirements Analysis}}{1}{2} \\
+    
+    \ganttbar[bar/.append style={fill=sprint1}]{\textbf{Prototyping \& Core Modules}}{3}{5} \\
+    
+    \ganttbar[bar/.append style={fill=sprint2}]{\textbf{Features Development \& Integration}}{6}{8} \\
+    
+    \ganttbar[bar/.append style={fill=sprint3}]{\textbf{Testing}}{9}{10} \\
+    
+    \ganttbar[bar/.append style={fill=sprint4}]{\textbf{Deployment}}{11}{12}
+    
+\end{ganttchart}%
+}
+
+\vspace{1cm}
+
+
+
+
 \section{Tools and Technologies}
+\begin{itemize}
+    \item \textbf{Backend:} 
+        \begin{itemize}
+            \item[$\circ$] MySQL or PostgreSQL (if advanced features are required)
+        \end{itemize}
+    \item \textbf{Programming Languages:} 
+        \begin{itemize}
+            \item[$\circ$] Node.js for server-side scripting
+            \item[$\circ$] HTML, CSS, JavaScript (or any framework like React/Angular)
+        \end{itemize}
+    \item \textbf{Web Server:} 
+        \begin{itemize}
+            \item[$\circ$] Apache or Nginx (if better performance is needed with high traffic)
+        \end{itemize}
+\end{itemize}
 \section{References}
+\begin{enumerate}[label={[{\arabic*}]}]
+    \item B. Joy, “Software Engineering Project: Robo Hatch,” \textit{GitHub Repository}, 2021. [Online]. Available: \url{https://github.com/basudebjoy/Software-Engineering-Project-Robo-Hatch/} [Accessed: Nov. 8, 2025].
+
+    \item University of Washington, “Beer Recommendation System Project Proposal,” \textit{CSE403: Software Engineering Course}, 2012. [Online]. Available: \url{https://courses.cs.washington.edu/courses/cse403/12sp/Projects/proposals/brdmstr-proposal.pdf} [Accessed: Nov. 8, 2025].
+
+    \item H. Techie-Menson and P. Nyagorme, “Design and Implementation of a Web-Based Timetable System for Higher Education Institutions,” \textit{International Journal of Computer Applications}, vol. 7, pp. 1–13, 2021.
+
+\end{enumerate}
 
 
 \end{document}
