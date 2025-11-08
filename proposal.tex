@@ -22,6 +22,7 @@
 \definecolor{sprint2}{RGB}{234,34,100}
 \definecolor{sprint3}{RGB}{247,141,96}
 \definecolor{sprint4}{RGB}{8,207,208}
+\definecolor{sprint5}{RGB}{80,20,20}
 
 
 \begin{document}
@@ -82,10 +83,14 @@ planned, and clash-free, students can easily follow their routines and teachers 
 their classes without confusion. It defines the schedule of classes, allocates venues, assigns
 instructors, and ensures that academic activities are processed in an organized manner.
 Therefore, a proper, efficient, and effective timetable is required to support smooth learning process
-in the university.
+in the university. The proposed \textbf{University Timetable Management System} aims to provide a centralized platform where clash-free timetable will be ensured. It will provide convenience to everyone involved in timetable managing and scheduling process. Moreover, the system will allow end-users (Students) to view their classes timetable in a mannered way.
+
+\vspace{0.5cm}
 
 \section{Problem Statement}
-The current traditional way of managing and creating university timetables often causes problems like overlapping classes, venues being booked for more than one class simultaneously. This increases inefficiency when there are multiple departments which is a problem in making sure teachers, students, and classrooms are all available at the same time. In addition to that, makeup classes and checking free time slots are done informally through Whatsapp groups by Class Representatives (CR), which sometime leads to delays and conflicts. This makes it harder for students to follow their schedules and for teachers to plan their work. Moreover, timetable is shared through mails, so when there is some conflict, it is resolved and shared again which makes accessing it harder when there are multiple schedules have been shared. Hence, there is a clear need for a proper centralized timetable system that can handle multiple departments, identify conflicts so that can be resolved early, and make education easier. The proposed system aims to solve these problems by providing a centralized platform where clash-free timetable will be ensured. It will provide convenience to everyone involved in timetable managing and scheduling process. Moreover, the system will allow end-users (Students) to view their classes timetable in a mannered way.
+The current traditional way of managing and creating university timetables often causes problems like overlapping classes, venues being booked for more than one class simultaneously. This increases inefficiency when there are multiple departments which is a problem in making sure teachers, students, and classrooms are all available at the same time. In addition to that, makeup classes and checking free time slots are done informally through Whatsapp groups by Class Representatives (CR), which sometime leads to delays and conflicts. This makes it harder for students to follow their schedules and for teachers to plan their work. Moreover, timetable is shared through mails, so when there is some conflict, it is resolved and shared again which makes accessing it harder when there are multiple schedules have been shared. Hence, there is a clear need for a proper centralized timetable system that can handle multiple departments, identify conflicts so that can be resolved early, and make education easier. 
+
+\vspace{0.5cm}
 
 \section{Project Objectives}
 The major objective of this project is to implement a management system that will provide a platform for creating and managing class schedules and timetables effectively for faculty and students of the university. This project aims to replace the typical paper-based system and provide a centralized digital solution.
@@ -100,6 +105,8 @@ The key objectives are:
     \item To allow students and faculty to view updated schedules through dashboards online whenever changes occur.
     \item To store previous timetable records for future reference.
 \end{itemize}
+
+\vspace{0.5cm}
 
 \section{Stakeholder Identification}
 
@@ -128,6 +135,7 @@ The development and implementation of the \textbf{University Timetable Managemen
     Provides project requirements, feedback and continuously communicates during the development process to ensure that the system meets the university’s needs and requirements.
 \end{itemize}
 
+\vspace{0.5cm}
 
 \section{Software Development Methodology}
 For this project, we will use the \textbf{Agile (Scrum)} development process. The reason for choosing Scrum is that this project has many constraints due to the multiple roles involved in it, and we need to have continuous communication with Client/RP. Even after extensive requirement analysis, requirements might evolve, Client may want more features, or might not features already developed. So, having an iterative approach is beneficial for effective development and Scrum will provide us a facility to accommodate these changes. In Scrum, system is divided into sprints where each sprints is communicated with Client, feedback is noticed and changes are applied which in result rectifies the overall system. Continuous involvement of stakeholders shall assure us that developed system meets user requirements and needs and issues are identified early which makes development effective.
@@ -146,17 +154,17 @@ According to one year development schedule, project will be divided into phases 
 \textbf{Prototype \& Core Modules} & Develop core modules (user authentication, database setup, basic CRUD operations), front-end interface, and first testing. \\ \hline
 \textbf{Feature Development \& Integration} & Develop additional features (advanced modules) and integrate modules, do unit and integration testing. \\ \hline
 \textbf{Testing \& Refinement} & Perform system testing, bug fixing, perform refinement based on user feedback. \\ \hline
-\textbf{Deployment \& Final Evaluation} & Final deployment and user training. \\ \hline
+\textbf{Deployment} & Final deployment and user training. \\ \hline
 \end{tabular}
-\caption{Project Schedule in Sprints}
+\caption{Project Phases}
 \end{table}
 
-\vspace{0.6cm}
+
+\vspace{0.5cm}
 
 \begin{center}
-{\large \textbf{One-Year Agile (Scrum) Development Timeline}}
+{\large \textbf{Timeline - Gantt Chart}}
 \end{center}
-
 \vspace{0.5cm}
 
 \noindent\makebox[\textwidth]{%
@@ -170,12 +178,13 @@ According to one year development schedule, project will be divided into phases 
     bar height=0.6,
     bar label font=\scriptsize,
     title label font=\scriptsize\bfseries,
-    bar/.append style={fill=blue!50}
+    bar/.append style={fill=blue!50},
+    group/.append style={fill=gray!50}
 ]{1}{12}
-    
+
     \gantttitle{Months}{12} \\
     \gantttitlelist{1,...,12}{1} \\
-    
+
     \ganttbar[bar/.append style={fill=sprint0}]{\textbf{Planning \& Requirements Analysis}}{1}{2} \\
     
     \ganttbar[bar/.append style={fill=sprint1}]{\textbf{Prototyping \& Core Modules}}{3}{5} \\
@@ -184,15 +193,14 @@ According to one year development schedule, project will be divided into phases 
     
     \ganttbar[bar/.append style={fill=sprint3}]{\textbf{Testing}}{9}{10} \\
     
-    \ganttbar[bar/.append style={fill=sprint4}]{\textbf{Deployment}}{11}{12}
+    \ganttbar[bar/.append style={fill=sprint4}]{\textbf{Deployment}}{11}{12} \\
     
+    \ganttbar[bar/.append style={fill=sprint5}]{\textbf{Documentation}}{1}{12}
+
 \end{ganttchart}%
 }
 
-\vspace{1cm}
-
-
-
+\vspace{0.5cm}
 
 \section{Tools and Technologies}
 \begin{itemize}
@@ -209,46 +217,37 @@ According to one year development schedule, project will be divided into phases 
         \begin{itemize}
             \item[$\circ$] Apache or Nginx (if better performance is needed with high traffic)
         \end{itemize}
+    \item \textbf{Design \& Protoype:} 
+        \begin{itemize}
+            \item[$\circ$] Figma
+        \end{itemize}
 \end{itemize}
-\section{References} 
+
+\vspace{0.5cm}
+
+\section{References}
 \renewcommand{\bibname}{}
-\begin{thebibliography}{99}
-
-\bibitem{joy2021}
-B. Joy, "Software Engineering Project: Robo Hatch," \textit{GitHub Repository}, 2021. [Online]. Available: \url{https://github.com/basudebjoy/Software-Engineering-Project-Robo-Hatch/}. [Accessed: Nov. 8, 2025].
-
-\bibitem{uw2012}
-University of Washington, "Beer Recommendation System Project Proposal," \textit{CSE403: Software Engineering Course}, 2012. [Online]. Available: \url{https://courses.cs.washington.edu/courses/cse403/12sp/Projects/proposals/brdmstr-proposal.pdf}. [Accessed: Nov. 8, 2025].
-
-\bibitem{techie2021}
-H. Techie-Menson and P. Nyagorme, "Design and Implementation of a Web-Based Timetable System for Higher Education Institutions," \textit{International Journal of Computer Applications}, vol. 7, pp. 1--13, 2021.
-
-\bibitem{chatgpt2025}
-OpenAI, "ChatGPT (GPT-5 Mini) Prompt Responses," 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
-
-\bibitem{ai_proposal}
-AI prompt, "make a project proposal template in latex as described in given document," OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
-
-\bibitem{ai_titlepage}
-AI prompt, "look at the content of title page, like is it grammatically correct and punctuations too?," OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
-
-\bibitem{ai_ieee}
-AI prompt, "how to add ieee style references in latex?," OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
-
-\bibitem{ai_tools}
-AI prompt, "help me with identifying relevant tools and technology for this project," OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
-
-\bibitem{ai_methodology}
-AI prompt, "which software development methodology should we use for our project, what i think is that this system is complex and faces lot of constraints, so we should utilize iterative methods like scrum and kanban which focuses on continuous feedback and evaluation?," OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
-
-\bibitem{claude_gantt}
-AI prompt, "can you make gantt chart for schedule given below?," Claude (Sonnet 4.5), Nov. 8, 2025. [Online]. Available: \url{https://claude.ai/new/}. [Accessed: Nov. 8, 2025].
-
-\end{thebibliography}
-
-
-
-
-
+\renewcommand{\arraystretch}{1.3}
+\begin{enumerate}[label={[\arabic*]}, leftmargin=*, align=left, labelwidth=2.3em, itemindent=0em]
+    \item B. Joy, ``Software Engineering Project: Robo Hatch,'' \textit{GitHub Repository}, 2021. [Online]. Available: \url{https://github.com/basudebjoy/Software-Engineering-Project-Robo-Hatch/}. [Accessed: Nov. 8, 2025].
+    
+    \item University of Washington, ``Beer Recommendation System Project Proposal,'' \textit{CSE403: Software Engineering Course}, 2012. [Online]. Available: \url{https://courses.cs.washington.edu/courses/cse403/12sp/Projects/proposals/brdmstr-proposal.pdf}. [Accessed: Nov. 8, 2025].
+    
+    \item H. Techie-Menson and P. Nyagorme, ``Design and Implementation of a Web-Based Timetable System for Higher Education Institutions,'' \textit{Int. J. Comput. Appl.}, vol. 7, pp. 1--13, 2021.
+    
+    \item OpenAI, ``ChatGPT (GPT-5 Mini) Prompt Responses,'' 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
+    
+    \item AI prompt, ``make a project proposal template in latex as described in given document,'' OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
+    
+    \item AI prompt, ``look at the content of title page, like is it grammatically correct and punctuations too?,'' OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
+    
+    \item AI prompt, ``how to add ieee style references in latex?,'' OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
+    
+    \item AI prompt, ``help me with identifying relevant tools and technology for this project,'' OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
+    
+    \item AI prompt, ``which software development methodology should we use for our project, what i think is that this system is complex and faces lot of constraints, so we should utilize iterative methods like scrum and kanban which focuses on continuous feedback and evaluation?,'' OpenAI ChatGPT (GPT-5 Mini), Nov. 8, 2025. [Online]. Available: \url{https://chat.openai.com/}. [Accessed: Nov. 8, 2025].
+    
+    \item AI prompt, ``can you make gantt chart for schedule given below?,'' Claude (Sonnet 4.5), Nov. 8, 2025. [Online]. Available: \url{https://claude.ai/new/}. [Accessed: Nov. 8, 2025].
+\end{enumerate}
 
 \end{document}
