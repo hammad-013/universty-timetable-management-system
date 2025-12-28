@@ -1,0 +1,2098 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xspace}
+\usepackage{tikz}
+\usepackage{float}
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5} 
+
+\hypersetup{hidelinks}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Software Requirements Specification}
+\lhead{Univeristy Timetable Management System}
+\cfoot{\thepage}  
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    
+    \IfFileExists{logo.png}{
+        \includegraphics[width=0.35\textwidth]{logo.png} \\
+        \vspace{0.5cm}
+    }{
+        \textbf{\Huge NAMAL UNIVERSITY} \\
+        \vspace{0.2cm}
+        \Large \textbf{Mianwali} \\
+        \vspace{0.5cm}
+    }
+    
+    \Large Namal University, Mianwali \\
+    \vspace{1cm}
+    
+    \textbf{\LARGE Software Requirements Specification} \\
+    \vspace{1cm}
+    
+    \textbf{\LARGE University Timetable \\ Management System} \\
+    \vspace{0.8cm}
+    
+    \Large \textbf{Version 1.0} \\
+    \vspace{0.5cm}
+    
+    28-December-2025 \\
+    \vspace{1.2cm}
+    
+    \Large
+    \textbf{Authors:} \\
+    \vspace{0.5cm}
+    \begin{tabular}{c}
+        Hammad Shabbir \\
+        Ahmer Sultan \\
+        Hasnain Ali \\
+    \end{tabular}
+    \vspace{0.8cm}
+    
+    \textbf{Requirement Provider (Client):} \\
+    \vspace{0.2cm}
+    Mr. Abdul Rafay \\
+    
+    \vfill
+    \small
+     \rule{\textwidth}{0.5pt}
+    \textit{Confidential Document - For Internal Use Only}
+    
+\end{titlepage}
+
+\newpage
+\renewcommand*\contentsname{Table of Contents}
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\subsection{Overview}
+This Software Requirements Specification (SRS) document is a compilation of the overall requirement of the University Timetable Management System to be designed to be utilized at Namal University, Mianwali. It is mainly used to guide the development process and make it meet the expectations of the entire stakeholders, such as the developers, and end users.
+
+\subsection{Purpose}
+The following Software Requirements Specification document will outline and specify the functional requirements and non-functional requirements of the \textbf{University Timetable Management System}. This document specifies the system functions, constraints and quality features that shall be used by the development team in the development process.
+
+
+
+\subsection{Product Scope}
+
+\subsubsection{Scope Coverage}
+
+\begin{itemize}
+\item Basic scheduling and schedule control.
+\item Instructors and venue conflict detection and resolution.
+\item Multi-user access e.g. Admin, Faculty, Student etc.
+\item Timetable notification system via email.
+\item Basic reporting
+\item Adding, deleting and managing user accounts.
+\item Classroom, Labs Resource management.
+\end{itemize}
+
+\subsubsection{Scope Exclusions}
+
+\begin{itemize}
+\item Native mobile applications
+\item Full Support for more than one university.
+\item AI conflict resolution.
+\end{itemize}
+
+
+\subsection{Definitions, Acronyms, and Abbreviations}
+
+\paragraph{Definitions}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} p{3.5cm} p{9cm} @{}}
+\toprule
+\textbf{Term} & \textbf{Definition} \\
+\midrule
+Conflict & Overlapping class schedules \\
+\addlinespace
+Time Slot & Specific day/time for a class \\
+\addlinespace
+Venue & Classroom/lab where class is held \\
+\addlinespace
+Draft Timetable & Being created/edited, not yet published \\
+\addlinespace
+Published Timetable & Timetable which is visible to users \\
+\addlinespace
+Soft Delete & A data management technique where data is flagged as inactive rather than removing it physically. \\
+\bottomrule
+\end{tabular}
+\caption{Definitions}
+\label{tab:definitions}
+\end{table}
+
+\paragraph{Acronyms and Abbreviations}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} p{2.5cm} p{10cm} @{}}
+\toprule
+\textbf{Acronym} & \textbf{Full Form} \\
+\midrule
+SRS & Software Requirements Specification \\
+\addlinespace
+UTMS & University Timetable Management System \\
+\addlinespace
+UI/UX & User Interface/User Experience \\
+\addlinespace
+RBAC & Role-Based Access Control \\
+\addlinespace
+SMTP & Simple Mail Transfer Protocol \\
+\addlinespace
+CSV & Comma-Separated Values \\
+\addlinespace
+SQL & Structured Query Language \\
+\addlinespace
+HTTPS & Hypertext Transfer Protocol Secure \\
+\addlinespace
+XSS/CSRF & Cross-Site Scripting/Cross-Site Request Forgery \\
+\addlinespace
+FAQ & Frequently Asked Questions \\
+\addlinespace
+ToS & Terms of Service \\
+\bottomrule
+\end{tabular}
+\caption{Acronyms and Abbreviations}
+\label{tab:acronyms}
+\end{table}
+
+\subsection{Key Business Goals}
+
+\begin{enumerate}
+\item \textbf{Arrange Scheduling Conflicts}: Eliminate scheduling conflicts in classes and venue conflicts by conflict detection.
+\item \textbf{Centralize Timetable Management:} Have the system to replace email and informal coordination with a single source of information.
+\item \textbf{Support Multiple Departments:} Manage schedules of various departments at the same time.
+\end{enumerate}
+
+\subsection{Intended Audience}
+
+\begin{itemize}
+\item \textbf{Software Developers:} To understand the system and use requirements for development process.
+\item \textbf{Project Managers:} To track and manage the progress of the development process.
+\item \textbf{Quality Assurance Team:} Generate test cases with help of requirements explained in this document.
+\item \textbf{Stakeholders:} To ensure that system meets the expectation and needs of the organization and aligns with its policies.
+\end{itemize}
+
+
+
+\subsection{References}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} p{8cm} p{3cm} p{4cm} @{}}
+\toprule
+\textbf{Document} & \textbf{Date} & \textbf{Source} \\
+\midrule
+Project Proposal: University Timetable Management System & Nov 9, 2025 & Namal University, CSC-225 \\
+\addlinespace
+IEEE Recommended Practice for Software Requirements Specifications (IEEE 830-1998) & 1998 & IEEE \\
+\addlinespace
+IEEE Recommended Practice for Software Requirements Specifications & 2021 & Studocu \\
+\addlinespace
+General Data Protection Regulation (GDPR) & 2018 & European Union \\
+\bottomrule
+\end{tabular}
+\caption{References}
+\label{tab:references}
+\end{table}
+
+
+\section{General Description}
+
+\subsection{Product Perspective}
+
+\subsubsection{System Context}
+
+The University Timetable Management System is a web based application that consists of a self built application. It is intended to operate in isolation on behalf of the university.
+
+
+\subsubsection{System Boundaries}
+
+The system is an independent application, which has the following external interfaces:
+\begin{itemize}
+\item \textbf{Email Server:} To send notification emails to users.
+\item \textbf{Web Browsers}: Chrome, Firefox, Safari, Edge etc. to access by users.
+\item \textbf{Database:} Import/export functions of backup
+\end{itemize}
+
+\subsection{Product Functions}
+
+\subsubsection{Major System Functions}
+
+\begin{enumerate}
+\item \textbf{Timetable Management}
+\begin{itemize}
+\item Create/Manage timetables
+\item Edit and manage previous timetables
+\item Store timetables for historical records
+\item Import/export timetables
+\end{itemize}
+
+\item \textbf{Conflict Detection \& Resolution}
+\begin{itemize}
+\item Detection and Resolution of Conflict
+\item Suggest resolution options
+\item Track conflict resolution status
+\item Generate conflict reports
+\end{itemize}
+
+\item \textbf{User \& Access Management}
+\begin{itemize}
+\item Authenticate users with email and password)
+\item Create/Manage user accounts
+\item Role-based access control
+\item Reset forgotten passwords
+\item Mass user import through CSV/Excel.
+\end{itemize}
+
+\item \textbf{Notification System}
+\begin{itemize}
+\item Send notification email for timetable updates
+\item In app notifications for system updates
+\item Scheduled reminders
+\end{itemize}
+
+\item \textbf{Reporting}
+\begin{itemize}
+\item Generate summary reports
+\item Report on conflict and resolution tracking.
+\item Logs of all system activities
+\end{itemize}
+
+\item \textbf{Resource Management}
+\begin{itemize}
+\item Maintain venue or classrooms database
+\item Track lab availability
+\item Prevent twice resource booking.
+\end{itemize}
+
+\item \textbf{Dashboard}
+\begin{itemize}
+\item Admin dashboard
+\item Faculty dashboard displaying assigned courses
+\item Student dashboard showing class schedule
+\item Search and filter functions
+\end{itemize}
+
+\item \textbf{System Configuration}
+\begin{itemize}
+\item Set up academic calendar (semesters, holidays)
+\item Configure time slots and class durations
+\item Manage notification settings
+\end{itemize}
+\end{enumerate}
+
+\subsection{User Classes and Characteristics}
+
+\textbf{User Class Characteristics:}
+
+\begin{itemize}
+\item \textbf{System Administrator:} Trained and have wide system knowledge.
+\item \textbf{Faculty:} Has technical skills, and he/she may request support.
+\item \textbf{Student:} Has technical skills, and primarily reads schedule.
+\item \textbf{Coordinator:} Has administrative background and is comfortable with data entry. He/She acts as bridge between faculty and admin.
+\item \textbf{IT Support:} Has technical skills.
+\end{itemize}
+
+\subsection{General Constraints}
+In this section, the organizational, regulatory, technical, and schedule limitations are described that should define how the system is designed, developed, deployed, and maintained are outlined. These limits are required limits within which the system should be working.
+
+\paragraph{Organizational and Regulatory Constraints}
+
+    \subparagraph{University Policies Compliance}
+    The system shall fully comply with all University policies, including but not limited to:
+    \begin{itemize}
+        \item Privacy and protection policy on data,
+        \item Information security regulations,
+        \item Policy of acceptable use and access control.
+    \end{itemize}
+    Any subsequent changes on University policies should be checked and incorporated in the system where a necessity exists.
+    
+    \subparagraph{Data Confidentiality and Data Privacy}
+    \begin{itemize}
+        \item The system shall ensure the confidentiality and integrity of all academic, administrative and data related to the user.
+        \item The access to the sensitive information shall be limited according to user roles and privileges.
+    \end{itemize}
+     
+
+
+    \subparagraph{Data Retention and Archival}
+   The system shall hold the records of historical timetables to utilize in auditing, compliance, and reference purposes.
+    \begin{itemize}
+        \item The history of timetables shall be archived \textbf{at least three (3) years} long.
+        \item The archived information shall be accessible but shall not be edited by an user without appropriate authorization.
+    \end{itemize}
+
+    \subparagraph{Legal and Regulatory Constraints}
+    The system shall comply with national and institutional data protection laws (e.g. data protection laws according to the jurisdiction of the institution).
+
+\paragraph{Technical Constraints}
+
+    \subparagraph{Technology Stack Limitations}
+    The approved technologies that shall be used in developing the system include:
+    \begin{itemize}
+        \item Backend: Node.js
+        \item Frontend: HTML, CSS, and JavaScript using either \textbf{React} or \textbf{Angular} framework
+        \item Database: MySQL or PostgreSQL
+        \item Web Server: Apache or Nginx
+        \item UI/UX Design Tool: Figma
+    \end{itemize}
+    The application of alternative technologies shall have to be pre-approved by the project stakeholders.
+    
+    \subparagraph{System Architecture}
+    The system shall be based on a modular and scalable design and shall implement Role-based access control (RBAC) to provide secure and authorized access to various user groups that may include administrators, faculty, and students.
+    
+    \subparagraph{Design Constraints in Database}
+    \begin{itemize}
+        \item The database shall be developed using \textbf{normalized relational schemas} to reduce redundancy and avoid occurrence of data anomalies.
+        \item In order to enhance performance and data consistency, referential integrity, indexing and constraints shall be used.
+    \end{itemize}
+    
+    \subparagraph{Code Quality and Standards}
+    \begin{itemize}
+        \item The source code shall follow consistent coding naming standards to ensure maintainability and readability.
+        \item The source code shall be documented using comments and external documents to support future improvements.
+        \item Secure coding practices shall be employed to avoid common system vulnerabilities (e.g.SQL injection).
+        \item The system shall be reviewed for quality of code before deployement.
+    \end{itemize}
+
+    \subparagraph{Compatibility and Deployment}
+    The system shall be compatible with the latest versions of major web browsers and shall be deployed in servers supported by University IT infrastructure environment with the University IT infrastructure support.
+
+\paragraph{Schedule Constraints}
+
+    \subparagraph{Development Timeline}
+    The system development shall be completed in \textbf{five (5) major phases} that shall take a total of \textbf{12 months} to be completed as specified in the Section 2.5 of the proposal.
+    
+    \subparagraph{Phase Dependencies}
+    The various phases of development shall be done and verified before moving to the next stage. Slowdown of the previous phases can affect the project schedule.
+
+
+
+\subsection{Assumptions and Dependencies}
+
+The details below explains the assumptions that were used in the creation of the University Timetable Management System and the dependencies on which the system depends to run correctly.
+
+\subsubsection{Assumptions}
+
+    \paragraph{User Data Availability}
+    The assumption is that the existing user information and detail such as faculty, student and course information can be imported either via the official records of the University or in case of Excel/CSV file.
+    
+    \paragraph{Academic Calendar Provided}
+    The University will also provide the academic calendar to set the dates of the semester, holidays and other scheduling variables in the system.
+    
+    \paragraph{Constant Network connectivity}
+    The system is assumed to be stable in terms of internet connectivity to access the system.
+    
+    \paragraph{Email System Available}
+    The University has a running SMTP email server to send notifications, alerts, and reminders to users of the system.
+    
+    \paragraph{Data Completeness}
+   All information needed in the generation of the timetable such as courses, instructors and places is supposed to be complete and correct before scheduling.
+    
+    \paragraph{One University Operation}
+    The system will support one university. It is not supposed to work in multi-university environments.
+    
+    \paragraph{Instructor Availability}
+    The teachers are supposed to inform the administration about being unavailable ahead of time to enable the administration to plan the schedule.
+
+\subsubsection{Dependencies}
+
+\paragraph{External Systems}
+\begin{itemize}
+    \item \textbf{Email Server:} This is required for sending notifications and alerts.
+    \item \textbf{Operating System:} Linux is needed for server deployment.
+    \item \textbf{Web Browser}: The user needs to have a newer version of a web browser which supports JavaScript.
+\end{itemize}
+
+\paragraph{Third-Party Libraries and Frameworks}
+\begin{itemize}
+    \item \textbf{Frontend Framework:} React/Angular for user interface.
+    \item \textbf{Backend Framework:} Node.js or Node.js-based framework.
+    \item \textbf{Database System}: Postgresql/MySQL as a database system.
+    \item \textbf{Authentication Libraries:} bcrypt/Argon2 for secure password hashing and authentication.
+\end{itemize}
+
+\paragraph{Project Dependencies}
+\begin{itemize}
+    \item Stakeholder approval of scope and budget of project.
+    \item University IT infrastructure for hosting, networking and server maintenance is available.
+    \item Availability of client to provide feedback and clarify their requirements on a regular basis.
+    \item Presence of Scrum Master to plan the sprints, handle backlog, and oversee development.
+\end{itemize}
+
+\paragraph{Data Dependencies}
+\begin{itemize}
+    \item Proper and complete information of the course.
+    \item Available schedules of instructors.
+    \item Classroom and lab capacity data.
+\end{itemize}
+
+
+\section{Specific Requirements}
+
+\subsection{Functional Requirements}
+
+\subsubsection{Timetable Management Module}
+
+\paragraph{FR1: Create Timetable}
+
+\subparagraph{Introduction} 
+The system shall allow administrators to create new timetables for departments with date, course, instructor, and venue assignments.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Department ID
+    \item Course codes
+    \item Instructor IDs
+    \item Venue IDs
+    \item Date ranges
+    \item Time slots
+\end{itemize}
+
+\subparagraph{Processing} 
+The system first checks the input data against the existing schedules. If it finds any conflicts, it uses the conflict detection rule to identify them. If all checks pass, it saves the new timetable as a draft. If the check fails, then the system shows specific error messages. These messages explain exactly which rules were broken.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item New draft timetable saved in the database with a unique ID
+    \item Confirmation message displayed to the administrator
+\end{itemize}
+
+\paragraph{FR2: Edit Timetable}
+
+\subparagraph{Introduction} 
+The system shall allow administrators to modify existing timetable entries and save changes with version control.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Timetable ID
+    \item Fields to modify (time, venue, instructor)
+    \item Edit reason
+\end{itemize}
+
+\subparagraph{Processing} 
+To make an edit, the system loads the current version, applies changes, and runs a conflict check. It then saves the update with a timestamp and user ID, maintaining a version history as required by FR10.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Updated timetable version
+    \item Logged version history
+    \item Success notification shown
+\end{itemize}
+
+\paragraph{FR3: Delete Timetable}
+
+\subparagraph{Introduction} 
+The system shall allow administrators to mark draft or expired timetables as delete (soft-delete) as per \textbf{BR3}.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Timetable ID
+    \item Confirmation of deletion
+\end{itemize}
+
+\subparagraph{Processing} 
+The system first checks the timetable’s status. If it is published, deletion is not allowed and an error message is shown. For draft or expired timetables, the system performs a soft delete. This means the timetable is marked as ”deleted” and hidden from normal views. A record of when and by whom it was deleted is saved.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Deletion recorded in log
+    \item Error if trying to delete published timetable
+    \item Notification to the administrator
+\end{itemize}
+
+\paragraph{FR4: Conflict Detection}
+
+\subparagraph{Introduction} 
+The system shall automatically detect and report scheduling conflicts in real-time as entries are added or modified, including instructor overlap, venue double-booking, and student schedule overlap.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item New or modified timetable entry (time, venue, instructor, student)
+\end{itemize}
+
+\subparagraph{Processing} 
+The system compares the new entry against existing schedules, checking for overlaps in instructor availability, venue bookings, and student enrollments. It then flags conflicts.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item On-screen warning if a conflict is detected
+    \item Details about conflict
+\end{itemize}
+
+\paragraph{FR5: Conflict Resolution Suggestions}
+
+\subparagraph{Introduction} 
+The system shall suggest alternative time slots, instructors, or venues to resolve identified conflicts.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Conflict ID
+    \item Current timetable constraints
+\end{itemize}
+
+\subparagraph{Processing} 
+The system analyzes available resources and open slots to generate feasible alternatives ranked by suitability.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item List of suggested alternatives
+    \item Menu for the administrator to select
+\end{itemize}
+
+\paragraph{FR6: Publish Timetable}
+
+\subparagraph{Introduction} 
+The system shall allow administrators to approve and publish final timetables, making them visible to authorized users. The system shall implement BR5 preventing publishing timetable if there is a conflict.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Timetable ID
+    \item Administrator approval confirmation
+\end{itemize}
+
+\subparagraph{Processing} 
+The system scans the timetable if it does not find any conflict, it marks the timetable as "published," notifies relevant users (faculty and students), and updates dashboards, otherwise it displays error message saying "Timetable with conflict can not be published".
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Notification to relevant users via email or in-app
+    \item Status changed to "Active"
+    \item Error message if publishing timetable with conflict
+\end{itemize}
+
+\paragraph{FR7: Archive Timetable}
+
+\subparagraph{Introduction} 
+The system shall automatically archive published timetables after the term ends for history.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Term end date
+    \item Timetable status
+\end{itemize}
+
+\subparagraph{Processing} 
+The system scans for timetables after their end date, if it a timetable is expired, it moves it to archive storage, and updates its access permissions to "read-only."
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Archived timetable
+\end{itemize}
+
+\paragraph{FR8: Import and Export Timetable}
+
+\subparagraph{Introduction} 
+The system shall support importing timetables from previous terms and exporting timetables to PDF or Excel formats.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item For import: CSV or Excel file
+    \item For export: Timetable ID and format selection
+\end{itemize}
+
+\subparagraph{Processing} 
+For import, the system validates file format and then, runs full conflict check. if conflicts are found, it moves timetable to draft and flags issues for review. For export, the system generates a file in the selected format with proper formatting.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Import: Data loaded into draft timetable
+    \item Export: File downloaded (PDF or Excel) to user's device
+\end{itemize}
+
+\paragraph{FR9: Bulk Operations}
+
+\subparagraph{Introduction} 
+The system shall allow administrators to perform bulk edit operations on multiple timetable entries simultaneously.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Selection of multiple entries
+    \item Operation type (change venue, shift time)
+    \item New values
+\end{itemize}
+
+\subparagraph{Processing} 
+The system applies the specified change to all selected entries, validates changes in batch, and updates the database.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Updated entries
+    \item Summary report of changes
+    \item Errors if any
+\end{itemize}
+
+\paragraph{FR10: Timetable Versioning}
+
+\subparagraph{Introduction} 
+The system shall maintain version history of all timetables with timestamps and change logs.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Timetable ID
+    \item User actions (create, edit, publish)
+\end{itemize}
+
+\subparagraph{Processing} 
+The system logs each action with user ID, timestamp, changed fields, and previous values in a version history table.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Complete version history in administrator panel
+\end{itemize}
+
+\subsubsection{Conflict Management Module}
+
+\paragraph{FR11: Conflict Report}
+
+\subparagraph{Introduction} 
+The system shall generate detailed conflict reports with affected courses, instructors, venues.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Date range
+    \item Department filter
+    \item Conflict status filter
+\end{itemize}
+
+\subparagraph{Processing} 
+The system searches through all conflicts based on the filters set by the user and compiles them into a structured report.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Downloadable or viewable report (PDF/Excel)
+    \item Lists each conflict with details, and current status
+\end{itemize}
+
+\paragraph{FR12: Track Resolution Status}
+
+\subparagraph{Introduction} 
+The system shall track the status of each conflict (Unresolved, In Review, Resolved, Acknowledged).
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Conflict ID
+    \item New status e.g. mark as "Resolved"
+\end{itemize}
+
+\subparagraph{Processing} 
+The system updates the conflict’s record with the new status, the time of the change, and the admin’s ID. The admin can also add notes explaining how it was resolved.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Conflict status updated in the system
+    \item Reflected in all views and reports
+\end{itemize}
+
+\paragraph{FR13: Automated Conflict Resolution}
+
+\subparagraph{Introduction} 
+The system shall suggest automated resolution options for conflicts where applicable using constraint-based scheduling.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Specific conflict ID
+    \item System's knowledge of available resources (free time slots, alternate venues/instructors)
+\end{itemize}
+
+\subparagraph{Processing} 
+When a scheduling conflict is identified, the system analyzes the problem. It looks for open rooms and time slots, then checks each option against the rules and constraints. It presents these possible solutions. A typical suggestion might be as: ”Fix: Move CS101 to Room B at 10 AM.”
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item List of suggested resolution actions
+    \item Presented to the administrator who can approve or ignore them
+\end{itemize}
+
+\subsubsection{User Management Module}
+
+\paragraph{FR14: User Registration}
+
+\subparagraph{Introduction} 
+The system shall support user account creation for Faculty, Students, and Course Coordinators with unique identification.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item User details (name, email, role, department)
+    \item Chosen password (must meet NFR15)
+\end{itemize}
+
+\subparagraph{Processing} 
+During account creation, the system first validates the email address for
+uniqueness, then checks password strength. Then, password is hashed and system generates a unique identifier for the user and stores the complete profile record in the database.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item New user account
+    \item Confirmation email sent
+    \item Error message if email is not valid or already exists or password does not meet requirements 
+\end{itemize}
+
+\paragraph{FR15: User Login and Authentication}
+
+\subparagraph{Introduction} 
+The system shall authenticate users via email/ID and password with secure password hashing (bcrypt/Argon2 or similar) as per NFR23.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Email or ID
+    \item Password
+\end{itemize}
+
+\subparagraph{Processing} 
+The system verifies credentials against the database, if they matches it opens a session. The session expires after 30 minutes of inactivity as per NFR22.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Successful login: access granted to the dashboard
+    \item Failed login: error message shown
+    \item Login attempt is logged
+\end{itemize}
+
+\paragraph{FR16: Role-Based Access Control}
+
+\subparagraph{Introduction} 
+The system shall enforce role-based permissions: Admin (full access), Faculty (view own schedule), Student (view own schedule), Coordinator (view/validate department data).
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item User role
+    \item Requested action
+\end{itemize}
+
+\subparagraph{Processing} 
+Before any action, system checks user's role. If user has appropriate role for the action, it allows it to be performed.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item User is granted or denied access to specific system functions based on their role
+\end{itemize}
+
+\paragraph{FR17: User Profile Management}
+
+\subparagraph{Introduction} 
+The system shall allow users to view and update their profile (name, email, department, contact information).
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Updated profile fields submitted by the user
+\end{itemize}
+
+\subparagraph{Processing} 
+The system checks new information for correct formats. If the email is being updated, it makes sure no one else is using it. It then saves the updates to the user’s account.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Updated Profile
+\end{itemize}
+
+\paragraph{FR18: Password Reset}
+
+\subparagraph{Introduction} 
+The system shall provide password reset functionality via email verification with validity of one hour as per NFR25.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item User's registered email address
+\end{itemize}
+
+\subparagraph{Processing} 
+The system generates a secure reset token, sends an email with a reset link. It checks for validity of link, if it has expired it shows an error message otherwise it lets user reset his/her password.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Password reset email
+    \item Error message if link has expired or invalid
+\end{itemize}
+
+\paragraph{FR19: Bulk User Import}
+
+\subparagraph{Introduction} 
+The system shall support bulk user creation via CSV or Excel file upload. Passwords shall be system-generated.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item CSV or Excel file containing user details (name, email, role, department)
+\end{itemize}
+
+\subparagraph{Processing} 
+An admin can bulk-create users by uploading a file. The system validates each user in the file, to make sure that emails are correct and unique. For valid entries, it creates
+accounts with secure passwords and sends welcome emails. Invalid entries are skipped, and an error report is generated.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Bulk users accounts
+    \item Summary report for the administrator
+\end{itemize}
+
+\paragraph{FR20: User Deactivation}
+
+\subparagraph{Introduction} 
+The system shall allow administrators to deactivate user accounts without deleting data.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item User ID
+    \item Administrator confirmation
+\end{itemize}
+
+\subparagraph{Processing} 
+The system sets the user account status to "inactive". This blocks user's login but account data is still preserved (soft-delete).
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item User account deactivated
+    \item Confirmation notification to the administrator
+\end{itemize}
+
+\paragraph{FR21: Multi-Factor Authentication}
+
+\subparagraph{Introduction} 
+The system shall support optional MFA (OTP via email/SMS) for enhanced security.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item User's email or phone number
+    \item One-time password (OTP) entered by the user
+\end{itemize}
+
+\subparagraph{Processing} 
+If MFA is enabled, the system generates and sends an OTP after password verification, then validates the entered OTP.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Successful MFA: grants login
+    \item Failed OTP: blocks login
+\end{itemize}
+
+\subsubsection{Notification and Communication Module}
+
+\paragraph{FR22: Email Notifications}
+
+\subparagraph{Introduction} 
+The system shall send email notifications to faculty and students when timetables are published or updated.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Timetable ID
+    \item List of affected users (faculty and students)
+    \item Type of change (publish/update)
+\end{itemize}
+
+\subparagraph{Processing} 
+The system composes an email with timetable details and change summary, then sends it via a configured email service.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Email notifications delivered to users' registered email addresses
+    \item Delivery status logged
+\end{itemize}
+
+\paragraph{FR23: In-App Notifications}
+
+\subparagraph{Introduction} 
+The system shall display in-app notifications for timetable changes, conflicts, and system updates.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Event trigger (timetable edit, conflict detection)
+    \item Target user(s)
+\end{itemize}
+
+\subparagraph{Processing} 
+The system creates a notification message, stores it in the user’s notification queue (keeps for 30 days), and displays it on their dashboard when they next log in.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Notification appears in the user's notification panel
+\end{itemize}
+
+\paragraph{FR24: Scheduled Notifications}
+
+\subparagraph{Introduction} 
+The system shall support scheduled notifications e.g. class reminders 1 hour before.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Class schedule data
+    \item User-defined reminder rules (time before class)
+\end{itemize}
+
+\subparagraph{Processing} 
+The system checks upcoming classes every 15 minutes against the current time. When a class matches the reminder criteria, the system triggers notifications in-app.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Notifications sent to users at the scheduled time
+\end{itemize}
+
+\paragraph{FR25: Notification Preferences}
+
+\subparagraph{Introduction} 
+The system shall allow users to configure notification settings (frequency, channels).
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item User's selected preferences (e.g., disable email reminders, enable in-app alerts)
+\end{itemize}
+
+\subparagraph{Processing} 
+The system saves preferences to the user's profile and applies them when generating notifications.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item User's notification settings
+\end{itemize}
+
+
+\subsubsection{Reporting Module}
+
+\paragraph{FR27: Timetable Summary Report}
+
+\subparagraph{Introduction} 
+The system shall generate summary reports (courses per instructor, venue utilization, time slot usage).
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Date range
+    \item Department filter
+    \item Report type
+\end{itemize}
+
+\subparagraph{Processing} 
+The system aggregates timetable data to calculate metrics like courses taught per instructor, venue occupancy, and time slot usage percentages.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Summary report (PDF/Excel)
+\end{itemize}
+
+\paragraph{FR28: Resource Utilization Report}
+
+\subparagraph{Introduction} 
+The system shall report on classroom and lab usage, capacity, and utilization rates.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Resource type (room/lab)
+    \item Date range
+    \item Department selected
+\end{itemize}
+
+\subparagraph{Processing} 
+The system calculates usage hours for each resource, compares against total available hours, and determines utilization percentages per resource.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Utilization report showing each resource's usage
+\end{itemize}
+
+\paragraph{FR29: Audit Log Report}
+
+\subparagraph{Introduction} 
+The system shall provide audit logs of all system activities (timetable changes, user actions, conflicts).
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item User ID (optional filter)
+    \item Action type (optional filter)
+    \item Date range filters
+\end{itemize}
+
+\subparagraph{Processing} 
+The system retrieves log entries from the audit table, filters by criteria, and sorts in order.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Comprehensive audit log report
+\end{itemize}
+
+
+\subsubsection{Resource Management Module}
+
+\paragraph{FR30: Venue and Classroom Management}
+
+\subparagraph{Introduction} 
+The system shall maintain a database of all venues with capacity, facilities, and availability.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Venue details (name, capacity, facilities list, availability schedule)
+\end{itemize}
+
+\subparagraph{Processing} 
+The system stores and updates venue information and checks availability against scheduled classes when timetables are created.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Updated venue records
+    \item Errors for invalid data
+\end{itemize}
+
+\paragraph{FR31: Lab Management}
+
+\subparagraph{Introduction} 
+The system shall track lab availability, and booking status.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Lab details (name, equipment, capacity)
+    \item Booking schedules
+\end{itemize}
+
+\subparagraph{Processing} 
+The system manages lab records separately from classrooms and validates bookings and prevents double-booking.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Lab availability
+    \item Prevented booking conflicts
+\end{itemize}
+
+\paragraph{FR32: Resource Constraints}
+
+\subparagraph{Introduction} 
+The system shall implement constraints e.g. classroom capacity, lab availability.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Class size
+    \item Resource requirements
+    \item Selected venue/lab during timetable creation
+\end{itemize}
+
+\subparagraph{Processing} 
+The system validates that the selected resource meets all constraints (capacity, availability) before finalizing the schedule.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Scheduling fails with an error message if requirements are not met
+\end{itemize}
+
+\paragraph{FR33: Resource Conflict Detection}
+
+\subparagraph{Introduction} 
+The system shall prevent double-booking of venues or labs through conflict detection.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Timetable entry with selected venue/lab and time slot
+\end{itemize}
+
+\subparagraph{Processing} 
+The system checks the resource's booking schedule in real-time for double reservations during the same period.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Double-booking attempts are blocked
+    \item Administrator receives an conflict alert with details
+\end{itemize}
+
+\subsubsection{Course and Department Management}
+
+\paragraph{FR34: Course Registry}
+
+\subparagraph{Introduction} 
+The system shall maintain a course database (code, name, instructor, number of sections).
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Course details
+\end{itemize}
+
+\subparagraph{Processing} 
+The system stores course information, and links it to the relevant department and instructor records.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Course added to the system
+    \item Available for selection during timetable creation
+\end{itemize}
+
+\paragraph{FR35: Department Management}
+
+\subparagraph{Introduction} 
+The system shall support management of multiple departments with separate course offerings.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Department details
+    \item Associated courses
+\end{itemize}
+
+\subparagraph{Processing} 
+The system organizes courses, instructors, and timetables under departments, implements department boundaries in scheduling to prevent cross-department
+conflicts unless allowed.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Departments are listed
+    \item Scheduling and reporting are filtered by department
+\end{itemize}
+
+
+\paragraph{FR36: Course Constraints}
+
+\subparagraph{Introduction} 
+The system shall allow specifying course-specific constraints e.g. preferred time slots.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Constraints defined per course
+    \item Example: "Must be scheduled in 1st slot"
+\end{itemize}
+
+\subparagraph{Processing} 
+The system stores constraints as structured metadata for each course and considers them during automated scheduling and conflict checking.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Constraints are followed during timetable generation
+\end{itemize}
+
+\subsubsection{Dashboard Module}
+
+\paragraph{FR37: Admin Dashboard}
+
+\subparagraph{Introduction} 
+The system shall display admin dashboard with timetable overview, pending actions, conflict summary, and user statistics.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Admin login
+    \item System data (timetables, conflicts)
+\end{itemize}
+
+\subparagraph{Processing} 
+The system gets data from multiple modules and presents it in widgets or panels on a  dashboard.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Interactive dashboard
+\end{itemize}
+
+\paragraph{FR38: Faculty Dashboard}
+
+\subparagraph{Introduction} 
+The system shall display faculty dashboard with their assigned courses, schedules.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Faculty member's user ID and role
+    \item Their assigned courses and timetable data
+\end{itemize}
+
+\subparagraph{Processing} 
+The system retrieves and displays only the courses, class times, and venues assigned to that faculty member. The data is displayed in calender view.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Dashboard showing weekly schedule, class details
+    \item Class details like course name, students enrolled, venue, time
+    \item Option to export schedule
+\end{itemize}
+
+\paragraph{FR39: Student Dashboard}
+
+\subparagraph{Introduction} 
+The system shall display student dashboard with class schedule, venue information, and timetable updates.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Student's user ID
+    \item Enrolled courses
+    \item Latest timetable
+\end{itemize}
+
+\subparagraph{Processing} 
+The system gets only published timetables, retrieves the student’s enrolled courses, filters the timetable to show only their classes and displays it in calendar view.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Clear schedule showing classes, times, venues
+    \item Notifications about schedule changes
+    \item Option to export schedule
+\end{itemize}
+
+\paragraph{FR40: Filter and Sort}
+
+\subparagraph{Introduction} 
+The system shall support filtering and sorting of timetables by department, day, instructor, venue.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item User-selected filters
+    \item Example: department = "Computer Science", day = "Monday"
+\end{itemize}
+
+\subparagraph{Processing} 
+The system applies filters to the timetable data set, reorders results, and updates the display.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Filtered and sorted timetable
+\end{itemize}
+
+\subsubsection{System Configuration Module}
+
+\paragraph{FR41: Academic Calendar Setup}
+
+\subparagraph{Introduction} 
+The system shall allow admin to configure academic calendar e.g. semesters, holidays, exam periods.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Academic year start/end dates
+    \item Semester periods
+    \item Holidays
+    \item Exam schedules
+\end{itemize}
+
+\subparagraph{Processing} 
+The system saves calendar events and checks them for errors, like making
+sure end dates come after start dates and that semesters don’t overlap. These dates are used
+to set boundaries for the schedule. For instance, no classes can be set on holidays.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Configured academic calendar applied system-wide
+    \item Errors if date ranges are illogical
+\end{itemize}
+
+\paragraph{FR42: Time Slot Configuration}
+
+\subparagraph{Introduction} 
+The system shall allow admin to define available time slots and class durations.
+
+\subparagraph{Inputs} 
+\begin{itemize}
+    \item Start/end times for day
+    \item Break periods
+    \item Slot durations
+\end{itemize}
+
+\subparagraph{Processing} 
+he system stores templates for time slots, which have names and set
+start/end times. It checks that these slots do not overlap with scheduled breaks. These saved
+templates can then be chosen when building a timetable.
+
+\subparagraph{Outputs} 
+\begin{itemize}
+    \item Time slot templates displayed in timetable creation interface
+    \item Error if slots overlap
+\end{itemize}
+
+\paragraph{FR43: System Settings}
+
+\subparagraph{Introduction}
+The system shall support configuration of notification settings, email templates, and system parameters.
+\subparagraph{Inputs}
+\begin{itemize}
+\item Admin-defined settings (email server details, default notification content)
+\end{itemize}
+\subparagraph{Processing}
+The system checks that the email server is reachable before saving its
+settings in case of email settings. It then stores the configuration and applies it everywhere it’s needed for sending
+notifications.
+\subparagraph{Outputs}
+\begin{itemize}
+\item System behavior customized (e.g., email sender name, notification triggers, UI preferences)
+\end{itemize}
+\paragraph{FR44: Constraint Configuration}
+\subparagraph{Introduction}
+The system shall allow admin to set global constraints (max classes per instructor, max students per class).
+\subparagraph{Inputs}
+\begin{itemize}
+\item Constraint rules e.g. "max 4 classes per instructor per day"
+\end{itemize}
+\subparagraph{Processing}
+The system checks that new constraint values are valid, such as making
+sure numbers are positive and within acceptable limits. It then saves them as official rules
+for the entire system. These rules are implemented during all timetable operations: creation, editing, and auto-generation.
+\subparagraph{Outputs}
+\begin{itemize}
+\item Constraints actively preventing schedule violations
+\item Error messages when constraints are violated
+\end{itemize}
+\subsubsection{Data Integrity and Security}
+\paragraph{FR45: Data Validation}
+\subparagraph{Introduction}
+The system shall validate all input data (dates, times, capacity) before accepting.
+\subparagraph{Inputs}
+\begin{itemize}
+\item User-provided data (dates, times, numbers, text fields) during any data entry operation
+\end{itemize}
+\subparagraph{Processing}
+The system checks all data for accuracy before saving it. This includes verifying formats (like dates and times), ensuring numbers are in a valid range, and confirming that the information is logical (for example, a start date must be before an end date). It also checks that any scheduled time slots match the system’s configured periods.
+\subparagraph{Outputs}
+\begin{itemize}
+\item Invalid inputs are rejected with error messages
+\item Valid data is stored in the database
+\end{itemize}
+\paragraph{FR46: Data Consistency}
+\subparagraph{Introduction}
+The system shall ensure data consistency across timetables, courses, and instructor assignments.
+\subparagraph{Inputs}
+\begin{itemize}
+\item Related data entries (course codes, instructor IDs, timetable references)
+\end{itemize}
+\subparagraph{Processing}
+The system prevents actions that would damage the data. It stops users from deleting things that are still in use, like an instructor with active classes. If an item is updated, connected information can update too. But the system will not automatically delete data in a way that breaks important links.
+\subparagraph{Outputs}
+\begin{itemize}
+\item Consistent data across modules
+\item Database integrity maintained
+\end{itemize}
+\paragraph{FR47: Access Control}
+\subparagraph{Introduction}
+The system shall enforce role-based access control for all features.
+\subparagraph{Inputs}
+\begin{itemize}
+\item User role
+\item Requested action
+\end{itemize}
+\subparagraph{Processing}
+The system checks a user’s permissions according to its role before granting access to any feature or data. Every attempt to access something whether allowed or blocked is recorded in the system’s audit log. If a user does not have permission, access is denied and they see an appropriate error message.
+\subparagraph{Outputs}
+\begin{itemize}
+\item Users can only access functions permitted for their role
+\item Unauthorized requests are blocked with ”Access Denied” message
+\end{itemize}
+\paragraph{FR48: Data Backup}
+\subparagraph{Introduction}
+The system shall perform automatic daily backups of all timetable and user data.
+\subparagraph{Inputs}
+\begin{itemize}
+\item System trigger (scheduled time)
+\item Database contents
+\end{itemize}
+\subparagraph{Processing}
+The system creates secure backups by taking a snapshot of the database
+and sending it to a separate backup server as per DBR-3. These backup files are compressed
+and then encrypted for security as per NFR17. All backups are kept for a minimum of 30 days
+as per DBR-2.
+\subparagraph{Outputs}
+\begin{itemize}
+\item Daily backup files
+\item Backup success/failure logged
+\item Notification to administrator if backup failed
+\end{itemize}
+\subsubsection{Timetable Generation Module}
+\paragraph{FR49: Automatic Timetable Generation}
+\subparagraph{Introduction}
+The system shall automatically create draft timetable with courses, instructors, venues, time slots, and constraints that are available.
+\subparagraph{Inputs}
+\begin{itemize}
+\item Course information (course codes, names, etc.)
+\item Instructor availability schedules
+\item Venue/classroom capacity data
+\item Available time slots
+\item Academic constraints
+\item Semester dates and academic calendar
+\end{itemize}
+\subparagraph{Processing}
+The system first ensures all setup is complete and the data is correct. It then uses an algorithm to build a schedule. This process follows all the rules to place courses into time slots, rooms, and with instructors. The algorithm will run until it finds a workable schedule or reaches its limit. Once a draft schedule is made, the system checks it thoroughly for conflicts and provides a report of any problems.
+\subparagraph{Outputs}
+\begin{itemize}
+\item Draft timetable
+\item Conflict report indicating any pending problems
+\item Timetable generation logs
+\end{itemize}
+\paragraph{FR50: Draft Review and Approval}
+\subparagraph{Introduction}
+The system shall enable administrators to review and modify the automatically generated timetable and approve it for publication.
+\subparagraph{Inputs}
+\begin{itemize}
+\item Auto-generated draft timetable
+\item Admin user credentials and permissions
+\item Modification requests
+\item Previous timetable data for comparison
+\end{itemize}
+\subparagraph{Processing}
+The system shows the draft timetable on a screen where conflicts are highlighted. When an admin makes a change, the system checks it against the rules right away. The system keeps a record of every change, saves different versions of the draft, and logs the review activity. It checks for new conflicts after every edit. Admins can also compare the current draft to older versions to see what was changed
+\subparagraph{Outputs}
+\begin{itemize}
+\item Review interface for administrators
+\item Modified timetable version
+\item Change history
+\item Conflict warnings due to manual changes
+\item Final approved timetable ready for publication
+\end{itemize}
+
+\subsection{External Interface Requirements}
+
+\subsubsection{Hardware Interfaces}
+
+\textbf{Server Hardware:}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{10cm} @{}}
+\toprule
+\textbf{Component} & \textbf{Specification} \\
+\midrule
+Processor & Minimum: Quad-core CPU at 2.5+ GHz, Recommended: Octa-core at 3.0+ GHz \\
+\addlinespace
+RAM & Minimum: 64 GB for up to 1000 concurrent users (NFR3), Scale: 8 GB per new 100 users \\
+\addlinespace
+Storage & Minimum: 1 TB SSD, Scalable according to growth, RAID is recommended \\
+\addlinespace
+Network Interface & 1 Gbps Ethernet, Minimum 100 Mbps throughput \\
+\addlinespace
+Operating System & Linux (Ubuntu 20.04+) according to dependencies (5.4.2.1) \\
+\bottomrule
+\end{tabular}
+\caption{Primary Server Hardware Requirements}
+\end{table}
+
+\textbf{Backup Server Hardware (NFR11):}
+
+\begin{itemize}
+\item Same specifications to primary server
+\item Separate physical location for disaster recovery (DBR-3)
+\end{itemize}
+
+\textbf{Client Hardware:}
+
+\begin{itemize}
+\item No specific hardware requirements except standard computer/mobile
+\item Minimum screen size: 320px (mobile phones) to 2560px (large displays)
+\end{itemize}
+
+\textbf{Network Requirements:}
+
+\begin{itemize}
+\item Bandwidth: 1 Mbps minimum per user, 5+ Mbps recommended for better experience
+\item Latency: less than 100ms for better user experience
+\item Protocols: TCP/IP, HTTPS (443), SMTP (587/465)
+\end{itemize}
+
+\subsubsection{Software Interfaces}
+
+
+\textbf{Software Stack (Technical Constraints 5.2.1):}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{9cm} @{}}
+\toprule
+\textbf{Component} & \textbf{Specification} \\
+\midrule
+Backend Framework & Node.js 18 LTS or higher \\
+\addlinespace
+Frontend Framework & React 18+ or Angular 15+ \\
+\addlinespace
+Database Management System & PostgreSQL 18.x or MySQL 8.4.x (DBR-1) \\
+\addlinespace
+Web Server & Apache 2.4+ or Nginx 1.18+ \\
+\addlinespace
+Authentication & bcrypt or Argon2 for password hashing (NFR23) \\
+\bottomrule
+\end{tabular}
+\caption{Software Stack Interfaces}
+\end{table}
+
+\textbf{Database Interface:}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{9cm} @{}}
+\toprule
+\textbf{Aspect} & \textbf{Specification} \\
+\midrule
+DBMS & PostgreSQL 18.x or MySQL 8.4.x (DBR-1) \\
+\addlinespace
+Connection Protocol & TCP/IP with SSL/TLS encryption \\
+\addlinespace
+Connection Pool & Minimum: 10 connections, Scale: 10 connections per 100 concurrent users, Maximum: 200 connections \\
+\addlinespace
+Connection Timeout & 30 seconds \\
+\addlinespace
+Query Timeout & 60 seconds for complex reports (FR27, FR30) \\
+\addlinespace
+Data Backup & Automated daily backups at 2:00 AM (FR52, DBR-2) \\
+\addlinespace
+Backup Format & SQL dump with gzip compression and AES-256 encryption \\
+\bottomrule
+\end{tabular}
+\caption{Database Interface Specifications}
+\end{table}
+
+
+\textbf{Data Exchange Formats:}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{8.5cm} @{}}
+\toprule
+\textbf{Data Type} & \textbf{Format} \\
+\midrule
+Timetable Export & PDF (printable), Excel (editable) \\
+\addlinespace
+User Import & CSV, Excel \\
+\addlinespace
+Report Export & PDF, Excel \\
+\bottomrule
+\end{tabular}
+\caption{Data Exchange Formats}
+\label{tab:data-exchange-formats}
+\end{table}
+
+\textbf{CSV/Excel Import Format:}
+
+\begin{itemize}
+\item Character encoding: UTF-8
+\item CSV delimiter: Comma (,)
+\item Excel format: .xlsx
+\item Maximum file size: 50 MB
+\item Maximum rows: 10,000 records per import
+\item Date format: YYYY-MM-DD
+\end{itemize}
+
+\subsubsection{Communications Interfaces}
+
+\textbf{Email Communication (SMTP):}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{9cm} @{}}
+\toprule
+\textbf{Aspect} & \textbf{Specification} \\
+\midrule
+Protocol & SMTP (Simple Mail Transfer Protocol) \\
+\addlinespace
+Port & 587 or 465 (SSL/TLS) \\
+\addlinespace
+Security & TLS 1.2 or higher encryption (NFR16) \\
+\addlinespace
+Authentication & Username/password (configured in FR47) \\
+\addlinespace
+Sender Address & System email but can be configured e.g. timetable@namal.edu.pk \\
+\addlinespace
+Email Format & HTML\\
+\addlinespace
+Retry Logic & Up to 3 retry attempts (FR22) \\
+\addlinespace
+Bounce Handling & Failed deliveries are logged\\
+\bottomrule
+\end{tabular}
+\caption{Email Communication Interface}
+\end{table}
+
+
+\subsubsection{User Interfaces}
+
+\textbf{General UI/UX Principles:}
+
+\begin{enumerate}
+\item \textbf{Responsive Design:} Interface shall be responsive to desktop, tablet and mobile screen size.
+\item \textbf{Consistency:} All the screens shall have similar patterns of designs.
+\item \textbf{Clarity:} Information architecture shall be user-friendly and new user shall complete basic tasks without training, as mentioned in \textbf{NFR26}.
+\end{enumerate}
+
+\textbf{UI Components \& Standards:}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{12cm} @{}}
+\toprule
+\textbf{Component} & \textbf{Standard} \\
+\midrule
+Color Scheme & Primary: University brand colors, Status colors: green for success, red for error, yellow for warning, blue for information \\
+Typography & Sans-serif font e.g. Inter, Roboto, Poppins,  Minimum 16px body text \\
+Icons & Font Awesome icons. SVG format is preferred. \\
+Buttons & Consistent sizing and spacing, Clear primary action,  Dangerous actions e.g. delete require confirmation \\
+Error Messages & Actionable language \\
+\bottomrule
+\end{tabular}
+\caption{UI Components \& Standards}
+\label{tab:ui-standards}
+\end{table}
+
+\textbf{Key User Interfaces:}
+
+\begin{enumerate}
+\item \textbf{Admin Dashboard (FR39)}
+\begin{itemize}
+\item Timetable status, conflicts, pending actions
+\item Action buttons: Create timetable, manage users, view reports
+\end{itemize}
+
+\item \textbf{Timetable Creation/Edit View}
+\begin{itemize}
+\item Two-panel layout: Left=course list, Right=timetable grid
+\item Drag-and-drop or form-based assignment
+\item Undo/redo buttons (NFR32)
+\end{itemize}
+
+\item \textbf{Conflict Detection \& Resolution View}
+\begin{itemize}
+\item List of conflicts
+\item Suggested solutions for each conflict
+\end{itemize}
+
+\item \textbf{Faculty Dashboard (FR40)}
+\begin{itemize}
+\item Calendar view of assigned courses
+\item Course details e.g. students, venue
+\item Issue reporting form
+\item Request form for unavailability
+\end{itemize}
+
+\item \textbf{Student Dashboard  (FR41)}
+\begin{itemize}
+\item Calendar view
+\item Course cards with instructor, venue, time
+\end{itemize}
+
+\item \textbf{User Management Interface}
+\begin{itemize}
+\item User list with search/filter
+\item Bulk import from CSV
+\item User creation form
+\item Permission assignment view
+\end{itemize}
+\end{enumerate}
+
+
+
+\subsection{Non-Functional Requirements}
+
+\subsubsection{Performance}
+
+\begin{longtable}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+NFR1 & Response Time & System shall load timetable page in less than or equal to 2 seconds on average connection (5 Mbps). \\
+\addlinespace
+NFR2 & Conflict Detection Speed & Conflict detection algorithm shall complete for timetable with 500+ courses within 5 minutes. \\
+\addlinespace
+NFR3 & Concurrent Users & System shall support minimum 1000 concurrent users without performance issues. \\
+\addlinespace
+NFR4 & Database Query Response & Database queries shall return results within 1 second. \\
+\addlinespace
+NFR5 & File Import/Export & Mass import of 1000+ users or export of large timetables shall complete within 5 minutes. \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Scalability}
+
+\begin{longtable}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\addlinespace
+NFR6 & Database Scalability & Database shall efficiently handle records from 1000 to 100,000+ without any performance loss. \\
+\addlinespace
+NFR7 & Multi-Department Support & System shall efficiently handle 10+ departments with separate timetables. \\
+\addlinespace
+NFR8 & User Growth & System shall accommodate growth from 500 users to 10,000+ users without any changes in its infrastructure. \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Reliability \& Availability}
+
+\begin{longtable}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+NFR9 & System Uptime & System shall have 99.5\% availability with maximum 3.6 hours downtime per month during academic term. \\
+\addlinespace
+NFR10 & Backup \& Recovery & System shall support recovery to any backup point within the 30-day retention period (DBR-2). Restoration shall complete within 24 hours of request. \\
+\addlinespace
+NFR11 & Failover & System shall support automatic failover to backup server if primary server fails. \\
+\addlinespace
+NFR12 & Data Integrity & System shall ensure zero data loss during normal operations and failover operations. \\
+\addlinespace
+NFR13 & Error Handling & System shall gracefully handle errors and display user-friendly messages instead of system errors. \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Security}
+
+\begin{longtable}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+NFR14 & Authentication & System shall require strong password (minimum of 8 characters, mix of uppercase, lowercase, numbers, symbols). \\
+\addlinespace
+NFR15 & Encryption in Transit & All data transmitted shall be encrypted using HTTPS/TLS 1.2 or higher. \\
+\addlinespace
+NFR16 & Encryption at Rest & Sensitive data (passwords, personal information) shall be encrypted using AES-256 encryption. \\
+\addlinespace
+NFR17 & SQL Injection Prevention & System shall avoid SQL injection attacks using parameterized queries. \\
+\addlinespace
+NFR18 & Cross-Site Scripting (XSS) Prevention & System shall sanitize all user inputs to prevent XSS attacks. \\
+\addlinespace
+NFR19 & Cross-Site Request Forgery (CSRF) Prevention & System shall implement CSRF tokens for all state-changing operations. \\
+\addlinespace
+NFR20 & Audit Logging & System shall maintain audit logs of all user actions (login, timetable modification, access). \\
+\addlinespace
+NFR21 & Session Management & System shall implement secure session management with timeout after 30 minutes of inactivity. \\
+\addlinespace
+NFR22 & Password Storage & System shall store passwords using bcrypt or other strong hashing algorithm. \\
+\addlinespace
+NFR23 & Role-Based Access Control & System shall implement RBAC to ensure that users access only authorized data. \\
+NFR24 & Password Reset & The system shall expire password reset links after period of one hour. \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Usability}
+
+\begin{longtable}{@{} l p{3cm} p{8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+NFR25 & Intuitive Interface & System interface shall be intuitive, new users shall accomplish basic tasks without training. \\
+\addlinespace
+NFR26 & Responsive Design & System shall be fully responsive on desktop, tablet, and mobile devices. \\
+\addlinespace
+\addlinespace
+NFR27 & User Documentation & System shall include comprehensive user guides, video tutorials, and help documentation. \\
+\addlinespace
+NFR28 & Consistent UI/UX & System shall maintain consistent design patterns, terminology, and navigation across all modules. \\
+\addlinespace
+NFR29 & Error Messages & System shall display clear, actionable error messages that guide users to solutions. \\
+\addlinespace
+NFR30 & Undo/Redo Functionality & System shall support undo/redo operations for timetable modifications (up to last 50 actions). \\
+\addlinespace
+NFR31 & Dark Mode Support & System should support optional dark mode for user preference. \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Compatibility \& Integration}
+
+\begin{longtable}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+NFR32 & Browser Compatibility & System shall work on latest versions of modern browsers. \\
+\addlinespace
+NFR33 & Mobile Compatibility & System shall be accessible via mobile browsers and responsive design. \\
+\addlinespace
+NFR34 & Email Integration & System shall integrate with university email system for sending notifications via SMTP. \\
+\addlinespace
+NFR35 & Database Compatibility & System shall use MySQL or PostgreSQL (as per proposal) and shall support database migration between versions. \\
+
+\bottomrule
+\end{longtable}
+
+\subsubsection{Maintainability \& Support}
+
+\begin{longtable}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+NFR36 & Code Documentation & Codebase shall be well-documented with clear comments. \\
+\addlinespace
+NFR37 & Logging \& Monitoring & System shall generate detailed logs for debugging. \\
+\addlinespace
+NFR38 & Database Maintenance & System shall be available 99.9\% of time during database maintenance operations. \\
+\addlinespace
+NFR39 & Version Control & System development shall use version control (Git) for all code changes. \\
+\addlinespace
+NFR40 & User Support & System shall include in-app help, FAQ, and support ticket system for user issues. \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Compliance \& Legal}
+
+\begin{longtable}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Metric} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+NFR41 & Data Privacy & System shall comply with GDPR/local data privacy regulations. \\
+\addlinespace
+NFR42 & Terms of Service & System shall display and implement terms of service and privacy policy for all users. \\
+\addlinespace
+NFR43 & Regulatory Compliance & System shall align with university policies and regulatory requirements. \\
+\bottomrule
+\end{longtable}
+
+
+\subsection{Other Non-Functional Requirements}
+\subsubsection{Business Rules}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{8cm} @{}}
+\toprule
+\textbf{Rule ID} & \textbf{Business Rule} \\
+\midrule
+BR-1 & The system shall allow only administrators to create or publish timetables. \\
+\addlinespace
+BR-2 &The system shall allow only faculty to request unavailability for their own schedules. \\
+\addlinespace
+BR-3 & The system shall prevent deletion of published timetables, only archiving is permitted. (Soft-delete only) \\
+\addlinespace
+BR-4 & The system shall restrict student users to view only their own schedules. \\
+\addlinespace
+BR-5 & The system shall prevent publishing timetables with unresolved Critical conflicts and shall display a list of such conflicts. \\
+\addlinespace
+BR-6 & The system shall prevent assigning an instructor to more than one course in the same time slot. \\
+\addlinespace
+BR-7 & The system shall prevent double-booking of venues for overlapping times. \\
+\addlinespace
+BR-8 & The system shall prevent course enrollment from exceeding the assigned venue capacity and shall issue a warning when enrollment exceeds 80\% of capacity. \\
+\addlinespace
+BR-9 & The system shall require user accounts to be deactivated before deletion (Soft-delete only). \\
+\addlinespace
+BR-10 & The system shall maintain audit logs as append-only records that cannot be deleted. \\
+\addlinespace
+BR-11 &  The system shall send timetable change notifications only for timetables in Published status. \\
+\bottomrule
+\end{tabular}
+\caption{Business Rules}
+\label{tab:business-rules}
+\end{table}
+
+
+\subsection{Other Requirements}
+
+\subsubsection{Database Requirements}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{Req ID} & \textbf{Requirement} & \textbf{Specification} \\
+\midrule
+DBR-1 & Database choice & The system shall use PostgreSQL version 18.x or higher or MySQL version 8.4.x or higher for the database system. \\
+\addlinespace
+DBR-2 & Data backup & The system shall perform database backups on a daily at 2:00 AM with a minimum retention period of 30 days. \\
+\addlinespace
+DBR-3 & Backup location & The system shall store backups on a separate server and shall implement an offsite backup for disaster recovery. \\
+\addlinespace
+DBR-4 & Database normalization & The database shall be normalized to at Third Normal Form (3NF) to reduce data redundancy and anomalies. \\
+\bottomrule
+\end{tabular}
+\caption{Database Requirements}
+\label{tab:database-requirements}
+\end{table}
+
+\subsubsection{Legal \& Compliance Requirements}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{Req ID} & \textbf{Requirement} & \textbf{Specification} \\
+\midrule
+LEG-1 & Terms of Service & The system shall display the Terms of Service (ToS) and require user to accept it on first login. \\
+\addlinespace
+LEG-2 & Privacy Policy & The system shall display a privacy policy that describes data collection, and usage. \\
+\addlinespace
+LEG-3 & Intellectual Property & The ownership of the system shall be defined according to university intellectual property policy. \\
+\addlinespace
+LEG-4 & Open Source Compliance & The system shall comply with all open-source software license terms if applicable e.g. MIT. \\
+\bottomrule
+\end{tabular}
+\caption{Legal \& Compliance Requirements}
+\label{tab:legal-compliance-requirements}
+\end{table}
+
+\subsubsection{Deployment \& Installation Requirements}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{4cm} p{8cm} @{}}
+\toprule
+\textbf{Req ID} & \textbf{Requirement} & \textbf{Specification} \\
+\midrule
+DEP-1 & Installation manual & The system shall consist of a stepwise installation guide to install the system within the university servers. \\
+\addlinespace
+DEP-2 & Configuration guide & The system shall provide a guide on how the database, email configurations, and system settings are configured. \\
+\addlinespace
+DEP-3 & System requirements & The system shall record the minimum server requirements as well as the software requirements. \\
+\addlinespace
+DEP-4 & Initial data load & The system shall provide scripts to import initial data e.g. users, courses from Excel/CSV files. \\
+\addlinespace
+DEP-5 & Rollback procedure & This system shall have a documented rollback procedure to recover the past state of the system in case of an unsuccessful deployment. \\
+\bottomrule
+\end{tabular}
+\caption{Deployment \& Installation Requirements}
+\label{tab:deployment-installation-requirements}
+\end{table}
+
+\subsubsection{Documentation \& Training Requirements}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{} l p{11cm} @{}}
+\toprule
+\textbf{Req ID} & \textbf{Requirement} \\
+\midrule
+DOC-1 & System shall include comprehensive user documentation (NFR27). \\
+\addlinespace
+DOC-2 & System shall include administrator training materials and guides. \\
+\addlinespace
+DOC-3 & System shall include in-app help system and FAQ section (NFR40). \\
+\addlinespace
+DOC-4 & System documentation shall be delivered in both PDF and web-based formats. \\
+\bottomrule
+\end{tabular}
+\caption{Documentation \& Training Requirements}
+\label{tab:documentation-requirements}
+\end{table}
+
+\newpage
+\appendix
+
+\section{Use Case Diagram}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\textwidth]{usecase.png}
+    \caption{System Use Case Diagram}
+    \label{fig:usecase diagram}
+\end{figure}
+
+\newpage
+\section{Context Diagram}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{dfd-0.png}
+    \caption{Context Diagram}
+    \label{fig:context diagram}
+\end{figure}
+
+
+\end{document}
