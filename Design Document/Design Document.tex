@@ -1,0 +1,911 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xspace}
+\usepackage{tikz}
+\usepackage{float}
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5} 
+
+\hypersetup{hidelinks}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Design Document}
+\lhead{Univeristy Timetable Management System}
+\cfoot{\thepage} 
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    
+    \IfFileExists{logo.png}{
+        \includegraphics[width=0.35\textwidth]{logo.png} \\
+        \vspace{0.5cm}
+    }{
+        \textbf{\Huge NAMAL UNIVERSITY} \\
+        \vspace{0.2cm}
+        \Large \textbf{Mianwali} \\
+        \vspace{0.5cm}
+    }
+    
+    \Large Namal University, Mianwali \\
+    \vspace{1cm}
+    
+    \textbf{\LARGE Design Document} \\
+    \vspace{1cm}
+    
+    \textbf{\LARGE University Timetable \\ Management System} \\
+    \vspace{0.8cm}
+    
+    18-January-2026 \\
+    \vspace{1.2cm}
+    
+    \Large
+    \textbf{Authors:} \\
+    \vspace{0.5cm}
+    \begin{tabular}{c}
+        Hammad Shabbir \\
+        Ahmer Sultan \\
+        Hasnain Ali \\
+    \end{tabular}
+    \vspace{0.8cm}
+    
+    \textbf{Requirement Provider (Client):} \\
+    \vspace{0.2cm}
+    Mr. Abdul Rafay \\
+    
+    \vfill
+    \small
+     \rule{\textwidth}{0.5pt}
+    \textit{Confidential Document - For Internal Use Only}
+    
+\end{titlepage}
+
+\newpage
+\renewcommand*\contentsname{Table of Contents}
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\subsection{Purpose}
+The purpose of this document is to describe the architecture, components, interfaces, and detailed design of the \textbf{University Timetable Management System}. This document translates the Software Requirements Specification into technical design decisions that guide the system implementation and its  verification.
+
+\subsection{Project Overview}
+The University Timetable Management System is web based application that aims to automate scheduling and management of timetables. Instead of manual and busy-schedules it substitutes it with centralized timetable creation, conflict detection and timetable access services to students, faculty, administrators.
+
+\subsection{Design Approach}
+
+The deisgn of our system is based on these principles:
+\begin{itemize}
+\item Independent modules and interfaces with clarity.
+\item Every design element traces back to SRS requirements.
+\item Interface designs prioritize ease of use.
+\end{itemize}
+
+\section{Design Assumptions and Constraints}
+
+\subsection{Design Assumptions}
+\begin{itemize}
+    \item Users have access to modern web browsers.
+    \item Academic, course, and user data is provided by the university.
+    \item Email services are available for notifications.
+    \item User roles and permissions are predefined.
+    \item The system operates for a single university.
+\end{itemize}
+
+\subsection{Design Constraints}
+\begin{itemize}
+    \item Compliance with university academic and data privacy policies.
+    \item Deployment limited to university IT infrastructure.
+    \item Must support concurrent users during peak periods.
+    \item Secure handling of sensitive user information.
+\end{itemize}
+
+
+\section{Key Design Decisions}
+
+\subsection{Architectural Decisions}
+The University Timetable Management System is developed based on a layered, modular.
+architecture which is consistent with the system context and interaction of components stipulated in the SRS. The architecture is based on a three-tier architecture:
+
+\begin{itemize}
+    \item \textbf{Presentation Layer}: A web-based user interface that was developed towards various.
+    user roles (Admin, Faculty, Student). This layer handles
+    user interaction, form validation, timetable visualization and dashboard rendering.
+    
+    \item \textbf{Application Logic Layer}: This layer fulfills fundamental system capability.
+    such as schedule creation, schedule editing, schedule conflict detection, schedule conflict resolution proposals, schedule publishing, and schedule notification. Business rules are
+    enforced at this layer.
+    
+    \item \textbf{Data Access Layer}: In responsibility of communication with the relational database.
+    This layer deals with permanent storing, retrieval and updating of timetables, users,
+    Audit logs, courses, locations and system configurations.
+\end{itemize}
+
+This level of architectural separation encourages scalability, maintainability and testability, and is.
+shown in the sequence diagram.
+
+\subsection{Database Design Decisions}
+According to the database specifications as per the SRS, a relational database management.
+There is a choice of system (PostgreSQL or MySQL). The database schema is created through normalized.
+relations (up to Third Normal Form) to decrease redundancy and guarantee the consistency of data.
+
+Key design decisions include:
+\begin{itemize}
+    \item Separate tables for users, roles, courses, department, venue, timetables.
+    \item Enforcement of relationships between entities  using foreign key constraints, such as
+    course, lecturers and venue.
+    \item Soft-delete of timetables and user accounts to agree with business, audit requirements and rules.
+\end{itemize}
+
+
+\subsection{Security Design Decisions}
+Security design decisions are derived by the non-functional security requirements defined in
+the SRS. The system implements Role-Based Access Control (RBAC) to ensure that users can
+only perform actions allowed according to their roles.
+
+Key security design elements include:
+\begin{itemize}
+    \item Authentication using secure login credentials with password hashing algorithm.
+    \item Audit logging of critical actions such as login attempts, timetable modifications,
+    and publishing events.
+    \item Secure session management with timeout mechanisms
+    access.
+\end{itemize}
+
+
+\subsection{User Interface Design Decisions}
+The user interface design follows a role-based approach aligned with the user classes
+identified in the SRS. Each user role is provided with a his/her dashboard according to its
+responsibilities.
+
+Key UI design decisions include:
+\begin{itemize}
+    \item \textbf{Admin Dashboard}: Provides access to timetable creation, conflict reports,
+    user management, and system configuration.
+    \item \textbf{Faculty Dashboard}: Displays assigned courses, timetable view, and
+    umakeup class functionality.
+    \item \textbf{Student Dashboard}: Displays a read only personalized timetable view.
+\end{itemize}
+
+Timetables are presented using calendar-style for ease of use. These design decisions
+are demonstrated.
+
+\newpage
+
+\section{System Design Diagrams}
+
+\subsection{Use Case Diagram}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{usecase-diagram.png}
+    }
+    \caption{Use Case Diagram}
+    \label{fig:usecase}
+\end{figure}
+
+\subsection{Data Flow Diagrams}
+\subsubsection{Data Flow Diagram - Level 0}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{context-diagram.png}
+    }
+    \caption{Data Flow Diagram - Level 0}
+    \label{fig:dfd}
+\end{figure}
+
+\subsubsection{Data Flow Diagram - Level 1}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{DFD Level 1.png}
+    }
+    \caption{Data Flow Diagram - Level 1}
+    \label{fig:dfd}
+\end{figure}
+
+\subsubsection{Data Flow Diagram - Level 2 - Dashboard}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{DFD LEVEL 2 – DASHBOARD.png}
+    }
+    \caption{Data Flow Diagram - Level 2 - Dashboard}
+    \label{fig:dfd}
+\end{figure}
+
+\subsubsection{Data Flow Diagram - Level 2 - User Management}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{DFD Level 2 – User Management.png}
+    }
+    \caption{Data Flow Diagram - Level 2 - User Management}
+    \label{fig:dfd}
+\end{figure}
+
+\subsubsection{Data Flow Diagram - Level 2 - Notification \& Communication }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{DFD Level 2 - Notification & Communication Process.png}
+    }
+    \caption{Data Flow Diagram - Level 2 - Notification \& Communication }
+    \label{fig:dfd}
+\end{figure}
+
+\subsubsection{Data Flow Diagram - Level 2 - System Configuration  }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{DFD Level 2 - System Configuration Process.png}
+    }
+    \caption{Data Flow Diagram - Level 2 - System Configuration  }
+    \label{fig:dfd}
+\end{figure}
+
+\subsubsection{Data Flow Diagram - Level 2 - Conflict Management  }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{DFD Level - 2 Conflict Management.jpeg}
+    }
+    \caption{Data Flow Diagram - Level 2 - Conflict Management }
+    \label{fig:dfd}
+\end{figure}
+
+\subsubsection{Data Flow Diagram - Level 2 - Timetable Management }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{DFD Level - 2 Timetable Management.jpeg}
+    }
+    \caption{Data Flow Diagram - Level 2 - Timetable Management }
+    \label{fig:dfd}
+\end{figure}
+
+\subsection{Sequence Diagrams}
+\subsubsection{User Login}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{User Login SEQ Diagram.png}
+    }
+    \caption{Sequence Diagram - User Login }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Bulk User Import}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{Bulk User Import SEQ.png}
+    }
+    \caption{Sequence Diagram - Bulk User Import }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Password Reset}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[height=0.92\textheight, keepaspectratio]{Password Reset SEQ.png}
+    }
+    \caption{Sequence Diagram - Password Reset}
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Publish Timetable}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{Publish Timetable SEQ.jpeg}}
+    \caption{Sequence Diagram - Publish Timetable}
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Timetable Creation With Conflict Detection}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[height=0.9\textheight, keepaspectratio]{Timetable Creation With Conflict Detection SEQ.jpeg}}
+    \caption{Sequence Diagram - Timetable Creation With Conflict Detection}
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Conflict Resolution}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[height=0.9\textheight, keepaspectratio]{Conflict Resolution SEQ.jpeg}}
+    \caption{Sequence Diagram - Conflict Resolution}
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Notification \& Communication Process }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{Notification & Communication Process SEQ.png}}
+    \caption{Sequence Diagram - Notification \& Communication Process }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Automatic Timetable Generation  }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=0.9\textwidth]{Automatic Timetable Generation SEQ.png}}
+    \caption{Sequence Diagram - Automatic Timetable Generation  }
+    \label{fig:sequence}
+\end{figure}
+
+\subsection{Activity Diagrams}
+\subsubsection{User Login  }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=0.95\textwidth]{User Login ACT.png}}
+    \caption{Activity Diagram - User Login  }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{User Registration  }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{User Registration ACT.png}}
+    \caption{Activity Diagram - User Registration  }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Report Generation  }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=0.9\textwidth]{Report Generation ACT.png}}
+    \caption{Activity Diagram - Report Generation  }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Bulk User Import }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=0.8\textwidth]{Bulk User Import SEQ.png}}
+    \caption{Activity Diagram - Bulk User Import  }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Password Reset }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[height=0.9\textheight, keepaspectratio]{Password Reset SEQ.png}}
+    \caption{Activity Diagram - Password Reset }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Conflict Detection and Resolution }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[height=0.9\textheight, keepaspectratio]{Conflict Detection and Resolution ACT.jpeg}}
+    \caption{Activity Diagram - Conflict Detection and Resolution}
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Timetable Creation and Publishing }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[height=0.9\textheight, keepaspectratio]{Timetable Creation and Publishing ACT.jpeg}}
+    \caption{Activity Diagram - Timetable Creation and Publishing }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Notification Delivery }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{Activity Diagram 1 - Notification Delivery Workflow.png}}
+    \caption{Activity Diagram - Notification Delivery }
+    \label{fig:sequence}
+\end{figure}
+
+\subsubsection{Auto-Timetable Generation }
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{Activity Diagram 2 - Auto-Timetable Generation Workflow.png}}
+    \caption{Activity Diagram - Auto-Timetable Generation  }
+    \label{fig:sequence}
+\end{figure}
+
+
+
+
+\subsection{Class Diagram}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{Class Diagram.jpeg}}
+    \caption{Class Diagram  }
+    \label{fig:class}
+\end{figure}
+
+\subsection{Component Diagram}
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \includegraphics[width=1\textwidth]{Component diagram.jpeg}}
+    \caption{Component Diagram  }
+    \label{fig:component}
+\end{figure}
+
+
+\newpage
+
+\section{Requirements-Design Traceability}
+
+\subsection{Traceability Matrix}
+
+\begin{longtable}{|p{1.5cm}|p{4cm}|p{9.5cm}|}
+\hline
+\textbf{Req ID} & \textbf{Requirement} & \textbf{Design Artifacts} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Req ID} & \textbf{Requirement} & \textbf{Design Artifacts} \\
+\hline
+\endhead
+
+\hline
+\endlastfoot
+
+
+FR1 & Create Timetable & 
+- Use Case: Create Timetable \newline
+- Context Diagram (Level 0) \newline
+- DFD Level 2: Timetable Management Module \newline
+- Sequence Diagram: Timetable Creation with Conflict Detection \newline
+- Activity Diagram: Timetable Creation and Publishing Workflow \newline
+- Classes: Timetable, TimetableManagementService, TimetableEntry, Course, User, Venue, TimeSlot, Department \newline
+- Components: Timetable Management \\
+\hline
+
+FR2 & Edit Timetable & 
+- Use Case: Edit Timetable \newline
+- DFD Level 2: Timetable Management Module \newline
+- Activity Diagram: Timetable Creation and Publishing Workflow \newline
+- Classes: Timetable, TimetableManagementService, TimetableEntry, TimetableVersion \newline
+- Components: Timetable Management \\
+\hline
+
+FR3 & Delete Timetable & 
+- Use Case: Delete Timetable \newline
+- DFD Level 2: Timetable Management Module \newline
+- Classes: Timetable, TimetableManagementService \newline
+- Components: Timetable Management \\
+\hline
+
+FR4 & Conflict Detection & 
+- Use Case: Detect Conflicts \newline
+- Context Diagram (Level 0) \newline
+- DFD Level 2: Conflict Management Module \newline
+- DFD Level 2: Timetable Management Module \newline
+- Sequence Diagram: Timetable Creation with Conflict Detection \newline
+- Activity Diagram: Conflict Detection and Resolution Workflow \newline
+- Classes: Conflict, ConflictDetectionEngine, TimetableEntry, ConflictManagementService \newline
+- Components: Conflict Detector \\
+\hline
+
+FR5 & Conflict Resolution Suggestions & 
+- Use Case: Resolve Conflicts \newline
+- DFD Level 2: Conflict Management Module \newline
+- Sequence Diagram: Conflict Resolution with Suggestions \newline
+- Activity Diagram: Conflict Detection and Resolution Workflow \newline
+- Classes: ConflictResolution, ConflictResolver, ConflictManagementService \newline
+- Components: Resolution, Conflict Detector \\
+\hline
+
+FR6 & Publish Timetable & 
+- Use Case: Publish Timetable \newline
+- DFD Level 2: Timetable Management Module \newline
+- Sequence Diagram: Timetable Publishing \newline
+- Activity Diagram: Timetable Creation and Publishing Workflow \newline
+- Classes: Timetable, TimetableManagementService, NotificationService \newline
+- Components: Timetable Management \\
+\hline
+
+FR7 & Archive Timetable & 
+- Use Case: Archive Timetable \newline
+- DFD Level 2: Timetable Management Module \newline
+- Classes: Timetable, TimetableManagementService \newline
+- Components: Timetable Management \\
+\hline
+
+FR8 & Import and Export Timetable & 
+- Use Case: Import/Export Timetable \newline
+- DFD Level 2: Timetable Management Module \newline
+- Classes: FileParser, ExportService, Report \newline
+- Components: Timetable Management \\
+\hline
+
+FR9 & Bulk Operations & 
+- Use Case: Edit Timetable \newline
+- DFD Level 2: Timetable Management Module \newline
+- Activity Diagram: Timetable Creation and Publishing Workflow \newline
+- Classes: TimetableEntry, TimetableManagementService \newline
+- Components: Timetable Management \\
+\hline
+
+FR10 & Timetable Versioning & 
+- DFD Level 2: Timetable Management Module \newline
+- Classes: TimetableVersion, TimetableManagementService \newline
+- Components: Timetable Management \\
+\hline
+
+FR11 & Conflict Report & 
+- Use Case: View Conflict Report \newline
+- DFD Level 2: Conflict Management Module \newline
+- DFD Level 2: Timetable Management Module \newline
+- Activity Diagram: Report Generation Workflow \newline
+- Classes: ConflictReport, ReportingService, ConflictManagementService \newline
+- Components: Reporting \\
+\hline
+
+FR12 & Track Resolution Status & 
+- Use Case: View Conflict Report \newline
+- DFD Level 2: Conflict Management Module \newline
+- Activity Diagram: Conflict Detection and Resolution Workflow \newline
+- Classes: Conflict, ConflictManagementService \newline
+- Components: Conflict Detector \\
+\hline
+
+FR13 & Automated Conflict Resolution & 
+- Use Case: Resolve Conflicts \newline
+- DFD Level 2: Conflict Management Module \newline
+- Sequence Diagram: Conflict Resolution with Suggestions \newline
+- Activity Diagram: Conflict Detection and Resolution Workflow \newline
+- Classes: ConflictResolution, ConflictResolver, ConflictManagementService \newline
+- Components: Resolution, Conflict Detector \\
+\hline
+
+FR14 & User Registration & 
+- Use Case: Manage Users \newline
+- Context Diagram (Level 0) \newline
+- Activity Diagram: User Registration Workflow \newline
+- Classes: User, UserManagementService, AuthenticationService \newline
+- Components: User Manager \\
+\hline
+
+FR15 & User Login and Authentication & 
+- Use Case: Login \newline
+- Context Diagram (Level 0) \newline
+- Sequence Diagram: User Login \newline
+- Activity Diagram: User Login Workflow \newline
+- Classes: User, AuthenticationService, Session \newline
+- Components: Auth Service \\
+\hline
+
+FR16 & Role-Based Access Control & 
+- Use Case: Login \newline
+- Context Diagram (Level 0) \newline
+- Classes: User, AuthenticationService, SecurityService \newline
+- Components: RBAC, Access Control \\
+\hline
+
+FR17 & User Profile Management & 
+- Use Case: Update Profile \newline
+- Classes: User, UserManagementService \newline
+- Components: User Manager \\
+\hline
+
+FR18 & Password Reset & 
+- Use Case: Login \newline
+- Sequence Diagram: Password Reset \newline
+- Activity Diagram: Password Reset Workflow \newline
+- Classes: AuthenticationService, EmailService \newline
+- Components: Auth Service, Email Server \\
+\hline
+
+FR19 & Bulk User Import & 
+- Use Case: Manage Users \newline
+- Sequence Diagram: Bulk User Import \newline
+- Activity Diagram: Bulk User Import Workflow \newline
+- Classes: UserManagementService, FileParser, User, EmailService \newline
+- Components: User Manager \\
+\hline
+
+FR20 & User Deactivation & 
+- Use Case: Manage Users \newline
+- Classes: User, UserManagementService \newline
+- Components: User Manager \\
+\hline
+
+FR21 & Multi-Factor Authentication & 
+- Use Case: Login \newline
+- Sequence Diagram: User Login \newline
+- Activity Diagram: User Login Workflow \newline
+- Classes: AuthenticationService, Session \newline
+- Components: Auth Service \\
+\hline
+
+FR22 & Email Notifications & 
+- Use Case: Send Notifications \newline
+- Context Diagram (Level 0) \newline
+- DFD Level 2: Notification and Communication Process \newline
+- Sequence Diagram: Notification and Communication \newline
+- Activity Diagram: Notification Delivery Workflow \newline
+- Classes: Notification, EmailService, NotificationService \newline
+- Components: Notification Service, Email Server \\
+\hline
+
+FR23 & In-App Notifications & 
+- Use Case: View Notifications \newline
+- DFD Level 2: Notification and Communication Process \newline
+- Sequence Diagram: Notification and Communication \newline
+- Activity Diagram: Notification Delivery Workflow \newline
+- Classes: Notification, NotificationService \newline
+- Components: Notification Service \\
+\hline
+
+FR24 & Scheduled Notifications & 
+- Use Case: Send Notifications \newline
+- DFD Level 2: Notification and Communication Process \newline
+- Activity Diagram: Notification Delivery Workflow \newline
+- Classes: Notification, NotificationService \newline
+- Components: Notification Service \\
+\hline
+
+FR25 & Notification Preferences & 
+- Use Case: Update Profile \newline
+- DFD Level 2: Notification and Communication Process \newline
+- Classes: NotificationPreference, NotificationService \newline
+- Components: Notification Service \\
+\hline
+
+FR27 & Timetable Summary Report & 
+- Use Case: Generate Reports \newline
+- Context Diagram (Level 0) \newline
+- Activity Diagram: Report Generation Workflow \newline
+- Classes: TimetableSummaryReport, ReportingService, ReportGenerator, Report \newline
+- Components: Reporting \\
+\hline
+
+FR28 & Resource Utilization Report & 
+- Use Case: Generate Reports \newline
+- Activity Diagram: Report Generation Workflow \newline
+- Classes: ResourceUtilizationReport, ReportingService, ReportGenerator, Report \newline
+- Components: Reporting \\
+\hline
+
+FR29 & Audit Log Report & 
+- Use Case: Generate Reports \newline
+- Context Diagram (Level 0) \newline
+- Activity Diagram: Report Generation Workflow \newline
+- Classes: AuditLogReport, AuditLog, AuditLogService, ReportingService \newline
+- Components: Audit Service \\
+\hline
+
+FR30 & Venue and Classroom Management & 
+- Use Case: Configure System \newline
+- Context Diagram (Level 0) \newline
+- Classes: Venue, ResourceManagementService, Booking \newline
+- Components: Resource Management \\
+\hline
+
+FR31 & Lab Management & 
+- Use Case: Configure System \newline
+- Classes: Venue, ResourceManagementService, Booking \newline
+- Components: Resource Management \\
+\hline
+
+FR32 & Resource Constraints & 
+- Use Case: Configure System \newline
+- Classes: ConflictDetectionEngine, CourseConstraint, TimetableEntry \newline
+- Components: Resource Management \\
+\hline
+
+FR33 & Resource Conflict Detection & 
+- Use Case: Detect Conflicts \newline
+- DFD Level 2: Conflict Management Module \newline
+- Activity Diagram: Conflict Detection and Resolution Workflow \newline
+- Classes: ConflictDetectionEngine, ResourceManagementService, Booking \newline
+- Components: Conflict Detector, Resource Management \\
+\hline
+
+FR34 & Course Registry & 
+- Use Case: Manage Courses \newline
+- Context Diagram (Level 0) \newline
+- Classes: Course, CourseManagementService, Department \newline
+- Components: Course Management \\
+\hline
+
+FR35 & Department Management & 
+- Use Case: Manage Departments \newline
+- Context Diagram (Level 0) \newline
+- Classes: Department, CourseManagementService \newline
+- Components: Course Management \\
+\hline
+
+FR36 & Course Constraints & 
+- Use Case: Configure System \newline
+- Classes: CourseConstraint, Course \newline
+- Components: Course Management \\
+\hline
+
+FR37 & Admin Dashboard & 
+- Use Case: Generate Reports, Manage Users, Manage Departments, Manage Courses, Configure System \newline
+- Context Diagram (Level 0) \newline
+- DFD Level 2: Dashboard \newline
+- Classes: Dashboard, AdminDashboard, DashboardService \newline
+- Components: Search, Search Engine \\
+\hline
+
+FR38 & Faculty Dashboard & 
+- Use Case: View Timetable, View Notifications, Update Profile \newline
+- Context Diagram (Level 0) \newline
+- DFD Level 2: Dashboard \newline
+- Classes: Dashboard, FacultyDashboard, DashboardService \newline
+- Components: Search, Search Engine \\
+\hline
+
+FR39 & Student Dashboard & 
+- Use Case: View Timetable, View Notifications, Update Profile \newline
+- Context Diagram (Level 0) \newline
+- DFD Level 2: Dashboard \newline
+- Classes: Dashboard, StudentDashboard, DashboardService, ExportService \newline
+- Components: Search, Search Engine \\
+\hline
+
+FR40 & Filter and Sort & 
+- Use Case: View Timetable \newline
+- DFD Level 2: Dashboard \newline
+- Classes: DashboardService \newline
+- Components: Search, Search Engine \\
+\hline
+
+FR41 & Academic Calendar Setup & 
+- Use Case: Configure System \newline
+- Context Diagram (Level 0) \newline
+- DFD Level 2: System Configuration \newline
+- Classes: TimeSlot \newline
+- Components: Config Manager \\
+\hline
+
+FR42 & Time Slot Configuration & 
+- Use Case: Configure System \newline
+- DFD Level 2: System Configuration \newline
+- Classes: TimeSlot \newline
+- Components: Config Manager \\
+\hline
+
+FR43 & System Settings & 
+- Use Case: Configure System \newline
+- DFD Level 2: System Configuration \newline
+- Classes: NotificationService, EmailService \newline
+- Components: Config Manager \\
+\hline
+
+FR44 & Constraint Configuration & 
+- Use Case: Configure System \newline
+- DFD Level 2: System Configuration \newline
+- Classes: CourseConstraint, ConflictDetectionEngine \newline
+- Components: Config Manager \\
+\hline
+
+FR45 & Data Validation & 
+- Context Diagram (Level 0) \newline
+- DFD Level 2: Timetable Management Module \newline
+- DFD Level 2: Conflict Management Module \newline
+- DFD Level 2: System Configuration \newline
+- Classes: TimetableManagementService, UserManagementService, FileParser, SecurityService, TimetableEntry \newline
+- Components: Validation \\
+\hline
+
+FR46 & Data Consistency & 
+- Context Diagram (Level 0) \newline
+- Classes: Course, Timetable \newline
+- Components: PostgreSQL/MySQL \\
+\hline
+
+FR47 & Access Control & 
+- Use Case: All system operations \newline
+- Context Diagram (Level 0) \newline
+- Sequence Diagram: User Login \newline
+- Classes: User, AuthenticationService, SecurityService \newline
+- Components: Access Control, RBAC \\
+\hline
+
+FR48 & Data Backup & 
+- Use Case: Backup Data \newline
+- Context Diagram (Level 0) \newline
+- Classes: SecurityService \newline
+- Components: Data Security, Timetable Management \\
+\hline
+
+FR49 & Automatic Timetable Generation & 
+- Use Case: Generate Timetable (Create Timetable) \newline
+- DFD Level 2: Timetable Management Module \newline
+- Sequence Diagram: Automatic Timetable Generation \newline
+- Activity Diagram: Auto Timetable Generation Workflow \newline
+- Classes: Timetable, TimetableEntry, TimetableManagementService, Course, User, Venue, TimeSlot, CourseConstraint, ConflictDetectionEngine \newline
+- Components: Generator \\
+\hline
+
+FR50 & Draft Review and Approval & 
+- Use Case: Validate Timetable \newline
+- DFD Level 2: Timetable Management Module \newline
+- Sequence Diagram: Timetable Publishing \newline
+- Activity Diagram: Timetable Creation and Publishing Workflow \newline
+- Classes: Timetable, TimetableVersion, TimetableManagementService, ConflictDetectionEngine \newline
+- Components: Timetable Management \\
+\hline
+
+\end{longtable}
+
+
+
+
+
+\subsection{Coverage Summary}
+The traceability matrix confirms that all functional and non-functional requirements
+defined in the SRS are addressed by corresponding design components, ensuring complete
+coverage.
+
+
+\section{Figma Link}
+Here is the link to Figma:
+
+\url{https://www.figma.com/proto/MWsrDnsdrzYqJAjm4uXEGP/UTMS?node-id=32-6589&t=b2sLpg9edA9X8euu-1}
+
+
+\section{GitHub Repository Link}
+Here is the link to repository:
+
+\url{https://github.com/hammad-013/universty-timetable-management-system}
+
+
+\section{Conclusion}
+This Software Design Specification has been effective in converting the SRS requirements into a detailed technical outline of the University Timetable Management System. The three level architecture, detailed diagrams and requirements traceability matrix give a clear base to be used in implementation. Having all the requirements (functional and non-functional) satisfied and confirmed by the prototype, the given design document will create an easy way to develop the system.
+
+\newpage
+
+\appendix
+
+\section{Glossary}
+\begin{itemize}
+    \item SRS: Software Requirements Specification
+    \item RBAC: Role-Based Access Control
+    \item DFD: Data Flow Diagram
+\end{itemize}
+
+
+\section{Design Tools Used}
+\begin{itemize}
+    \item Figma
+    \item Draw.io
+    \item Visual Paradigm
+    \item PlantUML
+\end{itemize}
+
+
+
+
+\end{document}
